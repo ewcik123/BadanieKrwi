@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
     x:Name="mainWindow"
-    Title="Badani Krwi"
+    Title="Badanie Krwi"
     Width="600"
     Height="520"
     dialog:DialogParticipation.Register="{Binding}"

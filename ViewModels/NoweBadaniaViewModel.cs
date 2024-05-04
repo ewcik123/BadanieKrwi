@@ -1,5 +1,6 @@
 ﻿using BadanieKrwi.Models;
 using BadanieKrwi.Views;
+using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
 using System.Windows.Input;
 
@@ -8,6 +9,7 @@ namespace BadanieKrwi.ViewModels
     public class NoweBadaniaViewModel : KlasaBazowa
     {
         #region Properties
+        public IDialogCoordinator DialogCoordinator { get; set; }
 
         private BadanieModel _noweBadanie;
         public BadanieModel NoweBadanie
@@ -99,20 +101,20 @@ namespace BadanieKrwi.ViewModels
 
         private void InicjalizacjaKomend()
         {
-            WrocCommand = new RelayCommand(ExecWroc);
+            WrocCommand = new RelayCommand(ExecWrocAsync);
             ZapiszCommand = new RelayCommand(ExecZapisz, x => _czyZapisac);
         }
 
         #endregion Main
 
-        private void ExecWroc(object obj)
+        private async void ExecWrocAsync(object obj)
         {
             if (obj is NoweBadanieOkno nbo)
             {
                 if (NoweBadanie.CzyZmodyfikowano)
                 {
-                    MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz cofnąć? Twoje dane nie zostaną zapisane", "Powrót", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (result == MessageBoxResult.No)
+                    var result = await ShowMessageAsync("Czy na pewno chcesz cofnąć? Twoje dane nie zostaną zapisane", "Powrót", this, DialogCoordinator);
+                    if (result == MessageDialogResult.Affirmative)
                         return;
                 }
 
@@ -120,14 +122,14 @@ namespace BadanieKrwi.ViewModels
             }
         }
 
-        private void ExecZapisz(object obj)
+        private async void ExecZapisz(object obj)
         {
             if (obj is NoweBadanieOkno nbo)
             {
                 if (NoweBadanie.CzyZmodyfikowano)
                 {
-                    MessageBoxResult result = MessageBox.Show("Twoje dane zostały zapisane", "Powrót", MessageBoxButton.OK, MessageBoxImage.Information);
-                    if (result == MessageBoxResult.OK)
+                    var result = await ShowMessageAsync("Twoje dane zostały zapisane", "Zapis Nowego Badania", this, DialogCoordinator);
+                    if (result == MessageDialogResult.Affirmative)
                         nbo.DialogResult = true;
                 }
                 else
