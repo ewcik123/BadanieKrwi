@@ -56,7 +56,7 @@ namespace BadanieKrwi.ViewModels
 
         private bool _czyMoznaSieZalogowac => !string.IsNullOrWhiteSpace(_email) && _email.Contains("@") && !string.IsNullOrWhiteSpace(_haslo);
 
-        private Visibility _pokazGridLogowania = Visibility.Collapsed;
+        private Visibility _pokazGridLogowania = Visibility.Visible;
         public Visibility PokazGridLogowania
         {
             get => _pokazGridLogowania;
@@ -70,7 +70,7 @@ namespace BadanieKrwi.ViewModels
             }
         }
 
-        private Visibility _pokazGridRejestracji = Visibility.Visible;
+        private Visibility _pokazGridRejestracji = Visibility.Collapsed;
         public Visibility PokazGridRejestracji
         {
             get => _pokazGridRejestracji;
