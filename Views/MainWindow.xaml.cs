@@ -1,4 +1,6 @@
-﻿using MahApps.Metro.Controls;
+﻿using BadanieKrwi.ViewModels;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace BadanieKrwi.Views
 {
@@ -10,6 +12,8 @@ namespace BadanieKrwi.Views
         public MainWindow()
         {
             InitializeComponent();
+            (DataContext as MainWindowViewModel)!.DialogCoordinator = DialogCoordinator.Instance;
+            (DataContext as MainWindowViewModel)!.RejestracjaVM.DialogCoordinator = DialogCoordinator.Instance;
         }
     }
 }

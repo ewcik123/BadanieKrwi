@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using MahApps.Metro.Controls.Dialogs;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace BadanieKrwi.Models
@@ -16,5 +17,29 @@ namespace BadanieKrwi.Models
         /// <param name="propertyName">Nazwa właściwości, której wartość uległa zmianie.</param>
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        public async Task ShowMessageAsync(string message, string title, object context = null, IDialogCoordinator dialogCoordinator = null)
+        {
+            if (dialogCoordinator == null || context == null)
+                return;
+
+            await dialogCoordinator.ShowMessageAsync(context, title, message);
+        }
+
+        public async Task ShowMessageAsync(string message, string title, MessageDialogStyle messageDialogStyle, object context = null, IDialogCoordinator dialogCoordinator = null)
+        {
+            if (dialogCoordinator == null || context == null)
+                return;
+
+            await dialogCoordinator.ShowMessageAsync(context, title, message, messageDialogStyle);
+        }
+
+        public async Task ShowMessageAsync(string message, string title, MessageDialogStyle messageDialogStyle, object context = null, IDialogCoordinator dialogCoordinator = null, MetroDialogSettings metroDialogSettings = null)
+        {
+            if (dialogCoordinator == null || context == null)
+                return;
+
+            await dialogCoordinator.ShowMessageAsync(context, title, message, messageDialogStyle, metroDialogSettings);
+        }
     }
 }

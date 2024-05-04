@@ -1,6 +1,7 @@
 ﻿using BadanieKrwi.Data_Base;
 using BadanieKrwi.Models;
 using BadanieKrwi.Views;
+using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,6 +10,21 @@ namespace BadanieKrwi.ViewModels
     public class MainWindowViewModel : KlasaBazowa
     {
         #region Properties
+        public IDialogCoordinator DialogCoordinator { get; set; }
+
+        private string _tekstEtykietyOkna = "Logowanie";
+        public string TekstEtykietyOkna
+        {
+            get => _tekstEtykietyOkna;
+            set
+            {
+                if (_tekstEtykietyOkna != value)
+                {
+                    _tekstEtykietyOkna = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private string _email;
         public string Email
@@ -38,13 +54,56 @@ namespace BadanieKrwi.ViewModels
             }
         }
 
-        private bool _czyMoznaSieZalogowac => !string.IsNullOrWhiteSpace(_email) && !string.IsNullOrWhiteSpace(_haslo);
+        private bool _czyMoznaSieZalogowac => !string.IsNullOrWhiteSpace(_email) && _email.Contains("@") && !string.IsNullOrWhiteSpace(_haslo);
 
+        private Visibility _pokazGridLogowania = Visibility.Collapsed;
+        public Visibility PokazGridLogowania
+        {
+            get => _pokazGridLogowania;
+            set
+            {
+                if (_pokazGridLogowania != value)
+                {
+                    _pokazGridLogowania = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private Visibility _pokazGridRejestracji = Visibility.Visible;
+        public Visibility PokazGridRejestracji
+        {
+            get => _pokazGridRejestracji;
+            set
+            {
+                if (_pokazGridRejestracji != value)
+                {
+                    _pokazGridRejestracji = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RejestracjaViewModel _rejestracjaVM;
+        public RejestracjaViewModel RejestracjaVM
+        {
+            get => _rejestracjaVM;
+            set
+            {
+                if(_rejestracjaVM != value)
+                {
+                    _rejestracjaVM = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         #endregion Properties
 
         #region Commands
         public ICommand RejestracjaWidokCommand { get; set; }
+        public ICommand RejestracjaCommand { get; set; }
+        public ICommand PowrotDoLogowaniaCommand { get; set; }
         public ICommand LogowanieWidokCommand { get; set; }
         #endregion Commands
 
@@ -60,40 +119,70 @@ namespace BadanieKrwi.ViewModels
         #region Main
         private void Inicializacja()
         {
+            RejestracjaVM = new();
+
             InicjalizacjaKomend();
         }
 
         private void InicjalizacjaKomend()
         {
             RejestracjaWidokCommand = new RelayCommand(ExecRejestracjaWidok);
+            RejestracjaCommand = new RelayCommand(ExecRejestracja, x => RejestracjaVM.CzyMoznaSieZarejstrowac);
             LogowanieWidokCommand = new RelayCommand(ExecLogowanieWidok, x => _czyMoznaSieZalogowac);
+            PowrotDoLogowaniaCommand = new RelayCommand(ExecPowrotDoLogowania);
         }
         #endregion Main
 
         private void ExecRejestracjaWidok(object obj)
         {
-            if (obj is MainWindow mw)
-            {
-                RejestracjaOkno rejWindow = new();
-                rejWindow.Closing += ((sender, args) =>
-                {
-                    mw.ShowInTaskbar = true;
-                    mw.WindowState = WindowState.Normal;
-                });
+            PrzejdzDoRejestracji();
+            //if (obj is MainWindow mw)
+            //{
+            //    RejestracjaOkno rejWindow = new();
+            //    rejWindow.Closing += ((sender, args) =>
+            //    {
+            //        mw.ShowInTaskbar = true;
+            //        mw.WindowState = WindowState.Normal;
+            //    });
 
-                rejWindow.Show();
-                mw.ShowInTaskbar = false;
-                mw.WindowState = WindowState.Minimized;
+            //    rejWindow.Show();
+            //    mw.ShowInTaskbar = false;
+            //    mw.WindowState = WindowState.Minimized;
+            //}
+        }
+
+        private async void ExecRejestracja(object obj)
+        {
+            Uzytkownik nowyUzytkownik = new()
+            {
+                Imie = RejestracjaVM.Imie,
+                Nazwisko = RejestracjaVM.Nazwisko,
+                Email = RejestracjaVM.Email,
+                HasloHash = RejestracjaVM.Haslo.GetHashCode().ToString(), // Hashujemy hasło
+                Wiek = RejestracjaVM.Wiek,
+                Plec = RejestracjaVM.Plec,
+                DataRejestracji = DateTime.Now
+            };
+
+            if (UwierzytelnianieSerwis.CzyUzytkownikIstnieje(RejestracjaVM.Email))
+            {
+                await ShowMessageAsync("Użytkownik już zarejestrowany", "Rejestracja", this, DialogCoordinator);
+                return;
+            }
+
+            if (await UwierzytelnianieSerwis.RejestracjaAsync(nowyUzytkownik, RejestracjaVM.Haslo))
+            {
+                await ShowMessageAsync("Twoje dane zostały zapisane", "Rejestracja", this, DialogCoordinator);
+                PrzejdzDoLogowania();
             }
         }
 
-        private void Logowanie(MainWindow mw)
+        private async void Logowanie(MainWindow mw)
         {
-            //if (_email == "a@gmail.com" && _haslo == "haslo")
-            //{
-            var user = AppDbContext.Instance.Uzytkownik.FirstOrDefault(u => u.Email == _email); // Sprawdzamy czy istnieje użytkownik o podanym emailu
+            using AppDbContext cont = new();
+            var user = cont.Uzytkownik.FirstOrDefault(u => u.Email == _email);  // Sprawdzamy czy istnieje użytkownik o podanym emailu
 
-            if (user != null && user.HasloHash == _haslo.GetHashCode().ToString()) // Sprawdzamy czy hasło jest poprawne
+            if (user != null && UwierzytelnianieSerwis.Logowanie(user, _haslo)) // Sprawdzamy czy hasło jest poprawne
             {
                 Globals.ZalogowanyUzytkownik = user;
                 MenuOkno menuWindow = new();
@@ -101,26 +190,32 @@ namespace BadanieKrwi.ViewModels
                 mw.Close();
             }
             else
-            {
-                MessageBox.Show("Nieprawidłowy adres email lub hasło.", "Błąd logowania", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-
-            //}
-            //else if (_email == "a@gmail.com")
-            //{
-            //    MessageBox.Show("Nieprawidłowe hasło.", "Błąd logowania", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Nieprawidłowy adres email.", "Błąd logowania", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
+                await ShowMessageAsync("Nieprawidłowy adres email lub hasło.", "Logowanie", this, DialogCoordinator);
         }
 
         private void ExecLogowanieWidok(object obj)
         {
             if (obj is MainWindow mw)
                 Logowanie(mw);
+        }
+
+        private void ExecPowrotDoLogowania(object obj)
+        {
+            PrzejdzDoLogowania();
+        }
+
+        private void PrzejdzDoLogowania()
+        {
+            PokazGridLogowania = Visibility.Visible;
+            PokazGridRejestracji = Visibility.Collapsed;
+            TekstEtykietyOkna = "Logowanie";
+        }
+
+        private void PrzejdzDoRejestracji()
+        {
+            PokazGridLogowania = Visibility.Collapsed;
+            PokazGridRejestracji = Visibility.Visible;
+            TekstEtykietyOkna = "Rejestracja";
         }
         #endregion Methods  
     }

@@ -1,14 +1,12 @@
-﻿using BadanieKrwi.Data_Base;
-using BadanieKrwi.Models;
-using BadanieKrwi.Views;
-using System.Windows;
-using System.Windows.Input;
+﻿using BadanieKrwi.Models;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace BadanieKrwi.ViewModels
 {
     public class RejestracjaViewModel : KlasaBazowa
     {
         #region Properties
+        public IDialogCoordinator DialogCoordinator { get; set; }
 
         private string _email;
         public string Email
@@ -69,7 +67,6 @@ namespace BadanieKrwi.ViewModels
 
 
         private string _nazwisko;
-
         public string Nazwisko
         {
             get => _nazwisko;
@@ -83,9 +80,7 @@ namespace BadanieKrwi.ViewModels
             }
         }
 
-
         private int _wiek;
-
         public int Wiek
         {
             get => _wiek;
@@ -100,7 +95,6 @@ namespace BadanieKrwi.ViewModels
         }
 
         private string _plec;
-
         public string Plec
         {
             get => _plec;
@@ -128,7 +122,7 @@ namespace BadanieKrwi.ViewModels
             }
         }
 
-        private bool _czyMoznaSieZarejstrowac
+        public bool CzyMoznaSieZarejstrowac
             => !string.IsNullOrWhiteSpace(_email)
             && !string.IsNullOrWhiteSpace(_imie)
             && !string.IsNullOrWhiteSpace(_nazwisko)
@@ -139,10 +133,6 @@ namespace BadanieKrwi.ViewModels
             && _haslo == _powtorzHaslo;
 
         #endregion Properties
-
-        #region Commands
-        public ICommand RejstracjstracjaWidokCommand { get; set; }
-        #endregion Commands
 
         #region Constructors
         public RejestracjaViewModel()
@@ -158,54 +148,22 @@ namespace BadanieKrwi.ViewModels
         {
             _wiek = 18;
 
-            InicjalizacjaKomend();
             InicjalizacjaPlci();
         }
 
         private void InicjalizacjaPlci()
         {
-            _plcie = new List<string>()
-            {
+            _plcie =
+            [
                 "Kobieta",
                 "Mężczyzna"
-            };
+            ];
 
             Plec = _plcie[0];
         }
 
-        private void InicjalizacjaKomend()
-        {
-            RejstracjstracjaWidokCommand = new RelayCommand(ExecRejstracjaWidok, x => _czyMoznaSieZarejstrowac);
-        }
-
         #endregion Main
 
-        private void ExecRejstracjaWidok(object obj)
-        {
-            if (obj is RejestracjaOkno r)
-            {
-                Uzytkownik nowyUzytkownik = new Uzytkownik
-                {
-                    Imie = Imie,
-                    Nazwisko = Nazwisko,
-                    Email = Email,
-                    HasloHash = Haslo.GetHashCode().ToString(), // Hashujemy hasło
-                    Wiek = Wiek,
-                    Plec = Plec,
-                    DataRejestracji = DateTime.Now
-                };
-
-
-                AppDbContext.Instance.Uzytkownik.Add(nowyUzytkownik); // Dodajemy nowego użytkownika do kontekstu
-                AppDbContext.Instance.SaveChanges(); // Zapisujemy zmiany w bazie danych
-
-
-                MessageBox.Show("Twoje dane zostały zapisane", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
-                r.Close();
-
-
-            }
-        }
         #endregion Methods
     }
 }

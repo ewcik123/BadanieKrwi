@@ -9,6 +9,7 @@ namespace BadanieKrwi.Data_Base
         public string Nazwisko { get; set; }
         public string Email { get; set; }
         public string HasloHash { get; set; }
+        public string Salt { get; set; }
         public int Wiek { get; set; }
         public string Plec { get; set; }
         public DateTime DataRejestracji { get; set; }

@@ -9,6 +9,7 @@
     Title="SzczegolyStezeniaSubstancjiOkno"
     Width="800"
     Height="450"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid />
 </ctrl:MetroWindow>
