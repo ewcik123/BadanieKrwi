@@ -30,6 +30,28 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
 
+            <Style
+                x:Key="topTextBlock20"
+                BasedOn="{StaticResource MahApps.Styles.TextBlock}"
+                TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="3" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style
+                x:Key="topTextBlock30"
+                BasedOn="{StaticResource MahApps.Styles.TextBlock}"
+                TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="3" />
+                <Setter Property="FontSize" Value="30" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
             <Style BasedOn="{StaticResource MahApps.Styles.TextBox}" TargetType="{x:Type TextBox}">
                 <Setter Property="Margin" Value="3" />
                 <Setter Property="VerticalAlignment" Value="Center" />
@@ -41,6 +63,16 @@
             </Style>
 
             <Style BasedOn="{StaticResource MahApps.Styles.PasswordBox}" TargetType="{x:Type PasswordBox}">
+                <Setter Property="Margin" Value="3" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MahApps.Styles.DatePicker}" TargetType="{x:Type DatePicker}">
+                <Setter Property="Margin" Value="3" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MahApps.Styles.ComboBox}" TargetType="{x:Type ComboBox}">
                 <Setter Property="Margin" Value="3" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>

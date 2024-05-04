@@ -4,12 +4,102 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctrl="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     xmlns:local="clr-namespace:BadanieKrwi.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="KalendarzBadanOkno"
+    xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
+    x:Name="kalendarzBadan"
+    Title="Badanie Krwi - Kalendarz Badań"
     Width="800"
     Height="450"
+    dialog:DialogParticipation.Register="{Binding}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid />
+    <ctrl:MetroWindow.DataContext>
+        <vm:KalendarzBadaniaViewModel />
+    </ctrl:MetroWindow.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock
+            Grid.ColumnSpan="2"
+            Style="{StaticResource topTextBlock30}"
+            Text="Kalendarz Badań" />
+
+        <TextBlock Grid.Row="1" Text="Wybór daty" />
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <DatePicker SelectedDate="{Binding DataBadania.Data}" />
+            <ComboBox
+                Width="60"
+                ItemsSource="{Binding DataBadania.Godziny}"
+                SelectedItem="{Binding DataBadania.Godzina}" />
+            <ComboBox
+                Width="60"
+                ItemsSource="{Binding DataBadania.Minuty}"
+                SelectedItem="{Binding DataBadania.Minuta}" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="2" Text="Wybór Kliniki" />
+        <Grid Grid.Row="2" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                Grid.Column="1"
+                ItemsSource="{Binding Kliniki}"
+                SelectedItem="{Binding WybranaKlinika}" />
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Treść" />
+            <TextBox
+                Grid.Row="1"
+                VerticalAlignment="Stretch"
+                ctrl:TextBoxHelper.ClearTextButton="True"
+                ctrl:TextBoxHelper.Watermark="Podaj treść badania.."
+                AcceptsReturn="True"
+                AcceptsTab="True"
+                Text="{Binding Tresc, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+        </Grid>
+
+        <StackPanel
+            Grid.Row="4"
+            Grid.ColumnSpan="3"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Command="{Binding ZapiszCommand}"
+                CommandParameter="{Binding ElementName=kalendarzBadan}"
+                Content="Zapisz" />
+            <Button
+                Command="{Binding WyslijCommand}"
+                CommandParameter="{Binding ElementName=kalendarzBadan}"
+                Content="Wyślij" />
+            <Button
+                Command="{Binding WrocCommand}"
+                CommandParameter="{Binding ElementName=kalendarzBadan}"
+                Content="Wróć" />
+        </StackPanel>
+    </Grid>
 </ctrl:MetroWindow>

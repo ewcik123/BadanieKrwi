@@ -10,8 +10,8 @@
     xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
     x:Name="noweBadanie"
     Title="Badanie Krwi - Nowe Badanie"
-    Width="597"
-    Height="940"
+    Width="477"
+    Height="840"
     dialog:DialogParticipation.Register="{Binding}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -22,7 +22,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </ctrl:MetroWindow.Resources>
 
-    <Grid>
+    <Grid Margin="3,0,3,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -41,70 +41,50 @@
             Grid.RowSpan="7"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
             Opacity="0.2"
             Source="/Files/Images/BadanieKrwi-LogoTlo.png"
             Stretch="Uniform" />
 
         <TextBlock
             Grid.ColumnSpan="2"
-            HorizontalAlignment="Center"
-            FontSize="30"
-            FontWeight="Bold"
+            Style="{StaticResource topTextBlock30}"
             Text="Stwórz nowe badanie" />
 
-        <TextBlock
-            Grid.Row="1"
-            VerticalAlignment="Center"
-            FontSize="15"
-            Text="Data badania" />
+        <TextBlock Grid.Row="1" Text="Data badania" />
         <DatePicker
             Grid.Row="1"
             Grid.Column="1"
-            Margin="3"
-            VerticalAlignment="Center"
             ctrl:TextBoxHelper.Watermark="Wybierz datę badania.."
-            FontSize="15"
             SelectedDate="{Binding NoweBadanie.DataBadania}" />
 
-        <TextBlock
-            Grid.Row="2"
-            VerticalAlignment="Center"
-            FontSize="15"
-            Text="Nazwa Badania" />
+        <TextBlock Grid.Row="2" Text="Nazwa Badania" />
         <TextBox
             Grid.Row="2"
             Grid.Column="2"
             ctrl:TextBoxHelper.ClearTextButton="True"
             ctrl:TextBoxHelper.SelectAllOnFocus="True"
             ctrl:TextBoxHelper.Watermark="Podaj nazwę badania.."
-            FontSize="15"
             Text="{Binding NoweBadanie.NazwaBadania, UpdateSourceTrigger=PropertyChanged}" />
 
-        <TextBlock
-            Grid.Row="3"
-            VerticalAlignment="Center"
-            FontSize="15"
-            Text="Nazwa Kliniki" />
+        <TextBlock Grid.Row="3" Text="Nazwa Kliniki" />
         <TextBox
             Grid.Row="3"
             Grid.Column="2"
             ctrl:TextBoxHelper.ClearTextButton="True"
             ctrl:TextBoxHelper.SelectAllOnFocus="True"
             ctrl:TextBoxHelper.Watermark="Podaj nazwę kliniki.."
-            FontSize="15"
             Text="{Binding NoweBadanie.NazwaKliniki, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock
             Grid.Row="4"
             Grid.ColumnSpan="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="30"
-            FontWeight="Bold"
+            Style="{StaticResource topTextBlock20}"
             Text="Morfologia Krwi" />
 
-        <ScrollViewer Grid.Row="5" Grid.ColumnSpan="2">
+        <ScrollViewer
+            Grid.Row="5"
+            Grid.ColumnSpan="2"
+            VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -130,236 +110,129 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Stężenie Erytrocytów RBC [liczba/μl]" />
+                <TextBlock Text="Stężenie Erytrocytów RBC [liczba/μl]" />
                 <TextBox
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.StezenieErytrocytowRbc, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="1"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Hemoglobina Hb [g/dl]" />
+                <TextBlock Grid.Row="1" Text="Hemoglobina Hb [g/dl]" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.HemoglobinaHb, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="2"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Hematokryt Htc [%]" />
+                <TextBlock Grid.Row="2" Text="Hematokryt Htc [%]" />
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.HematokrytHtc, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="3"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Średnia objętość erytrocytu MCV [fl]" />
+                <TextBlock Grid.Row="3" Text="Średnia objętość erytrocytu MCV [fl]" />
                 <TextBox
                     Grid.Row="3"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.SredniaObjetoscErytrocytuMcv, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="4"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Średnia masa hemoglobiny w erytrocycie MCH [pg]" />
+                <TextBlock Grid.Row="4" Text="Średnia masa hemoglobiny w erytrocycie MCH [pg]" />
                 <TextBox
                     Grid.Row="4"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.SredniaMasaHemoglobinyWErytrocycieMch, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="5"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Średnie stężenie hemoglobiny w erytrocytach MCHC [g/dl]" />
+                <TextBlock Grid.Row="5" Text="Średnie stężenie hemoglobiny w erytrocytach MCHC [g/dl]" />
                 <TextBox
                     Grid.Row="5"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.SrednieStezenieHemoglobinyWErytrocytachMchc, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="6"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Rozpiętość rozkładu objętości erytrocytów RDW-CV [%]" />
+                <TextBlock Grid.Row="6" Text="Rozpiętość rozkładu objętości erytrocytów RDW-CV [%]" />
                 <TextBox
                     Grid.Row="6"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.RozpietoscRozkladuObjetosciErytrocytowRdwCw, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="7"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Retikulocyty RC [%]" />
+                <TextBlock Grid.Row="7" Text="Retikulocyty RC [%]" />
                 <TextBox
                     Grid.Row="7"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.RetikulocytyRc, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="8"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Stężenie leukocytów WBC [liczba/μl]" />
+                <TextBlock Grid.Row="8" Text="Stężenie leukocytów WBC [liczba/μl]" />
                 <TextBox
                     Grid.Row="8"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.StezenieLeukocytowWbc, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="9"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Neutrofile [liczba/μl]" />
+                <TextBlock Grid.Row="9" Text="Neutrofile [liczba/μl]" />
                 <TextBox
                     Grid.Row="9"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.Neutrofile, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="10"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Bazofile [liczba/μl]" />
+                <TextBlock Grid.Row="10" Text="Bazofile [liczba/μl]" />
                 <TextBox
                     Grid.Row="10"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.Bazofile, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="11"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Eozynofile [liczba/μl]" />
+                <TextBlock Grid.Row="11" Text="Eozynofile [liczba/μl]" />
                 <TextBox
                     Grid.Row="11"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.Eozynofile, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="12"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Limfocyty [liczba/μl]" />
+                <TextBlock Grid.Row="12" Text="Limfocyty [liczba/μl]" />
                 <TextBox
                     Grid.Row="12"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.Limfocyty, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="13"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Monocyty [liczba/μl]" />
+                <TextBlock Grid.Row="13" Text="Monocyty [liczba/μl]" />
                 <TextBox
                     Grid.Row="13"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.Monocyty, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="14"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Płytki krwi PLT [liczba/μl]" />
+                <TextBlock Grid.Row="14" Text="Płytki krwi PLT [liczba/μl]" />
                 <TextBox
                     Grid.Row="14"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.PlytkiKrwiPlt, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="15"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Średnia objętość krwi MPV [fl]" />
+                <TextBlock Grid.Row="15" Text="Średnia objętość krwi MPV [fl]" />
                 <TextBox
                     Grid.Row="15"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.SredniaObjetoscKrwiMpv, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="16"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Żelazo" />
+                <TextBlock Grid.Row="16" Text="Żelazo" />
                 <TextBox
                     Grid.Row="16"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.Zelazo, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock
-                    Grid.Row="17"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Text="Magnez" />
+                <TextBlock Grid.Row="17" Text="Magnez" />
                 <TextBox
                     Grid.Row="17"
                     Grid.Column="1"
-                    Margin="3"
                     ctrl:TextBoxHelper.SelectAllOnFocus="True"
-                    FontSize="15"
                     Text="{Binding NoweBadanie.Magnez, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </ScrollViewer>
@@ -373,14 +246,12 @@
                 Background="LightSkyBlue"
                 Command="{Binding ZapiszCommand}"
                 CommandParameter="{Binding ElementName=noweBadanie}"
-                Content="Zapisz"
-                FontSize="15" />
+                Content="Zapisz" />
             <Button
                 Background="LightSkyBlue"
                 Command="{Binding WrocCommand}"
                 CommandParameter="{Binding ElementName=noweBadanie}"
-                Content="Wróć"
-                FontSize="15" />
+                Content="Wróć" />
         </StackPanel>
     </Grid>
 </ctrl:MetroWindow>
