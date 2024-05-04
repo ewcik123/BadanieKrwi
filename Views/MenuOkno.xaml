@@ -6,10 +6,60 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BadanieKrwi.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MenuOkno"
-    Width="800"
-    Height="450"
+    xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
+    Title="Badanie Krwi"
+    Width="344"
+    Height="239"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid />
+    <ctrl:MetroWindow.DataContext>
+        <vm:MenuViewModel />
+    </ctrl:MetroWindow.DataContext>
+    <Grid>
+        <Image
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Opacity="0.2"
+            Source="/Files/Images/BadanieKrwi-LogoTlo.png"
+            Stretch="Uniform" />
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Button Command="{Binding NoweBadanieCommand}" Content="Nowe Badanie" />
+            <Button
+                Grid.Column="1"
+                Command="{Binding TwojeBadaniaCommand}"
+                Content="Twoje Badania" />
+
+            <Button
+                Grid.Row="1"
+                Command="{Binding KalendarzBadanCommand}"
+                Content="Kalendarz Badań" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                Command="{Binding KlinikiCommand}"
+                Content="Kliniki" />
+
+            <Button
+                Grid.Row="2"
+                Command="{Binding StatystykiCommand}"
+                Content="Statystyki" />
+            <Button
+                Grid.Row="2"
+                Grid.Column="1"
+                Command="{Binding InformacjeCommand}"
+                Content="Informacje" />
+        </Grid>
+    </Grid>
 </ctrl:MetroWindow>

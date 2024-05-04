@@ -12,6 +12,7 @@
     <None Remove="Files\Images\BadanieKrwi - Logo 3.png" />
     <None Remove="Files\Images\BadanieKrwi - Logo.webp" />
     <None Remove="Files\Images\BadanieKrwi-Logo.png" />
+    <None Remove="Files\Images\BadanieKrwi-LogoTlo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
 
   <ItemGroup>
     <Resource Include="Files\Images\BadanieKrwi-Logo.png" />
+    <Resource Include="Files\Images\BadanieKrwi-LogoTlo.png" />
   </ItemGroup>
 
   <ItemGroup>

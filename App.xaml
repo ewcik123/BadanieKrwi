@@ -23,7 +23,6 @@
                 <Setter Property="FontWeight" Value="DemiBold" />
                 <Setter Property="Margin" Value="3" />
                 <Setter Property="MinWidth" Value="100" />
-                <Setter Property="Width" Value="100" />
             </Style>
 
             <Style BasedOn="{StaticResource MahApps.Styles.TextBlock}" TargetType="{x:Type TextBlock}">

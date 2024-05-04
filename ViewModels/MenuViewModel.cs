@@ -44,51 +44,36 @@ namespace BadanieKrwi.ViewModels
         #endregion Main
         private void ExecNoweBadanieWidok(object obj)
         {
-            if (obj is MenuOkno m)
+            NoweBadanieOkno badanieWindow = new();
+            (badanieWindow.DataContext as NoweBadaniaViewModel).NoweBadanie.CzyZmodyfikowano = false;
+            if (badanieWindow.ShowDialog().Value)
             {
-                NoweBadanieOkno badanieWindow = new();
-                (badanieWindow.DataContext as NoweBadaniaViewModel).NoweBadanie.CzyZmodyfikowano = false;
-                if (badanieWindow.ShowDialog().Value)
-                {
 
-                }
             }
         }
 
         private void ExecTwojeBadanieWidok(object obj)
         {
-            if (obj is MenuOkno m)
-            {
-                TwojeBadanieOkno badanieWindow = new();
-                badanieWindow.ShowDialog();
-            }
+            TwojeBadanieOkno badanieWindow = new();
+            badanieWindow.ShowDialog();
         }
 
         private void ExecKalendarzWidok(object obj)
         {
-            if (obj is MenuOkno m)
-            {
-                KalendarzBadanOkno kalendarz = new();
-                kalendarz.ShowDialog();
-            }
+            KalendarzBadanOkno kalendarz = new();
+            kalendarz.ShowDialog();
         }
 
         private void ExecKlinikiWidok(object obj)
         {
-            if (obj is MenuOkno m)
-            {
-                KlinikiOkno klinikiWindow = new();
-                klinikiWindow.ShowDialog();
-            }
+            KlinikiOkno klinikiWindow = new();
+            klinikiWindow.ShowDialog();
         }
 
         private void ExecStatystykiWidok(object obj)
         {
-            if (obj is MenuOkno m)
-            {
-                StatystykiOkno statystyki = new();
-                statystyki.ShowDialog();
-            }
+            StatystykiOkno statystyki = new();
+            statystyki.ShowDialog();
         }
 
         private void ExecInformacjeWidok(object obj)
