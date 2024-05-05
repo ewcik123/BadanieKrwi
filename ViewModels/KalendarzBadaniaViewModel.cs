@@ -15,8 +15,7 @@ namespace BadanieKrwi.ViewModels
         public bool czyMoznaKliknac
         {
             get => Kliniki?.Count > 0
-                && WybranaKlinika != null
-                && !string.IsNullOrEmpty(Tresc);
+                && WybranaKlinika != null;
         }
         #endregion Properties
 
