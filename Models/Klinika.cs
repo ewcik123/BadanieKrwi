@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         private string _adres;
         private string _nrTel;
-        private string _informacja;
+        private string? _informacja;
         private string _nazwa;
 
         public string Adres
@@ -36,7 +36,7 @@
             }
         }
 
-        public string Informacja
+        public string? Informacja
         {
             get { return _informacja; }
             set
@@ -69,6 +69,11 @@
         public Klinika() { }
 
         public Klinika(Klinika klinika) : this()
+        {
+            AktualizujKlinike(klinika);
+        }
+
+        public void AktualizujKlinike(Klinika klinika)
         {
             if (klinika == null)
                 return;

@@ -1,4 +1,4 @@
-﻿using BadanieKrwi.Data_Base;
+﻿using BadanieKrwi.Models.Database;
 
 namespace BadanieKrwi.Models
 {

@@ -1,4 +1,5 @@
 ﻿using BadanieKrwi.Models;
+using BadanieKrwi.Models.Database;
 using BadanieKrwi.Views;
 using MahApps.Metro.Controls.Dialogs;
 using System.Collections.ObjectModel;
@@ -55,7 +56,6 @@ namespace BadanieKrwi.ViewModels
 
         public bool czyMoznaZapisac
         => NowaKlinika?.Id != Guid.NewGuid()
-            && !string.IsNullOrWhiteSpace(NowaKlinika?.Informacja)
             && !string.IsNullOrWhiteSpace(NowaKlinika?.Adres)
             && !string.IsNullOrWhiteSpace(NowaKlinika?.Telefon);
         #endregion Properties
@@ -71,6 +71,7 @@ namespace BadanieKrwi.ViewModels
         public KlinikiViewModel()
         {
             Inicjalizacja();
+            WczytajKliniki();
         }
         #endregion Constructors
 
@@ -78,13 +79,7 @@ namespace BadanieKrwi.ViewModels
         #region Main
         private void Inicjalizacja()
         {
-            Kliniki =
-            [
-                 new(){ Id = Guid.NewGuid(), Nazwa = "Klinika 1", Adres = "Adres 1", Informacja = "Info 1", Telefon = "123 456 788" },
-                 new(){ Id = Guid.NewGuid(), Nazwa = "Klinika 2", Adres = "Adres 2", Informacja = "Info 2", Telefon = "123 456 789" },
-            ];
-
-            WybranaKlinika = Kliniki[0];
+            NowaKlinika = new();
             InicjalizacjaKomend();
         }
 
@@ -93,6 +88,31 @@ namespace BadanieKrwi.ViewModels
             WrocCommand = new RelayCommand(ExecWroc);
             ZapiszCommand = new RelayCommand(ExecZapisz, x => czyMoznaZapisac);
             NowyCommand = new RelayCommand(ExecNowy);
+        }
+
+        private void WczytajKliniki()
+        {
+            using AppDbContext cont = new();
+            Kliniki = new ObservableCollection<Klinika>([.. cont.Kliniki]);
+            WybranaKlinika = Kliniki.FirstOrDefault();
+        }
+
+        private bool Aktualizuj()
+        {
+            using AppDbContext cont = new();
+            if (WybranaKlinika != null)
+            {
+                WybranaKlinika.AktualizujKlinike(NowaKlinika);
+                cont.Update(WybranaKlinika);
+                return cont.SaveChanges() > 0;
+            }
+            else if (WybranaKlinika == null)
+            {
+                cont.Add(NowaKlinika);
+                return cont.SaveChanges() > 0;
+            }
+            return false;
+
         }
 
         #endregion Main
@@ -104,12 +124,13 @@ namespace BadanieKrwi.ViewModels
 
         private void ExecZapisz(object obj)
         {
-            if (obj is KlinikiOkno ko)
+            if (obj is KlinikiOkno ko && Aktualizuj())
                 ko.Close();
         }
 
         private void ExecNowy(object obj)
         {
+            WybranaKlinika = null;
             NowaKlinika = new Klinika() { Id = Guid.NewGuid() };
         }
         #endregion Methods 

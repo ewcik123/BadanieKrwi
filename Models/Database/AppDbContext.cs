@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
-namespace BadanieKrwi.Data_Base
+namespace BadanieKrwi.Models.Database
 {
     public partial class AppDbContext : DbContext
     {
@@ -9,8 +9,8 @@ namespace BadanieKrwi.Data_Base
                                             .ConnectionStrings["ConnectionString"].ConnectionString;
 
         public DbSet<Uzytkownik> Uzytkownik { get; set; }
-        public DbSet<Badania> Badania { get; set; }
-        public DbSet<Kliniki> Kliniki { get; set; }
+        public DbSet<BadanieModel> Badania { get; set; }
+        public DbSet<Klinika> Kliniki { get; set; }
 
         // uzycie SQL serwera i connectionString, który jest odczytywany z App.config
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

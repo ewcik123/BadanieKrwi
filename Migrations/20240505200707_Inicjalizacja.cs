@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BadanieKrwi.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialize : Migration
+    public partial class Inicjalizacja : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,27 +15,28 @@ namespace BadanieKrwi.Migrations
                 name: "Badania",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdKliniki = table.Column<int>(type: "int", nullable: false),
-                    IdUzytkownika = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NazwaBadania = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataBadania = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StezenieErytrocytowRBC = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    HemoglobinaHb = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    HematokrytHtc = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SredniaObjetoscErytrocytuMCV = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SredniaMasaHemoglobinyMCH = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SrednieSteczenieHemoglobinyMCHC = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RozpietoscRozkladuObjetosciErytrocytowRDWCV = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RetikulocytyRC = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    StezenieLeukocytowWBC = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Neutrofile = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Bazofile = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Eozynofile = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Limfocyty = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Monocyty = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PlytkiKrwiPLT = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SredniaObjetoscKrwiMPV = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    NazwaKliniki = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StezenieErytrocytowRbc = table.Column<int>(type: "int", nullable: false),
+                    HemoglobinaHb = table.Column<int>(type: "int", nullable: false),
+                    HematokrytHtc = table.Column<int>(type: "int", nullable: false),
+                    SredniaObjetoscErytrocytuMcv = table.Column<double>(type: "float", nullable: false),
+                    SredniaMasaHemoglobinyWErytrocycieMch = table.Column<double>(type: "float", nullable: false),
+                    SrednieStezenieHemoglobinyWErytrocytachMchc = table.Column<double>(type: "float", nullable: false),
+                    RozpietoscRozkladuObjetosciErytrocytowRdwCw = table.Column<double>(type: "float", nullable: false),
+                    RetikulocytyRc = table.Column<double>(type: "float", nullable: false),
+                    StezenieLeukocytowWbc = table.Column<int>(type: "int", nullable: false),
+                    Neutrofile = table.Column<int>(type: "int", nullable: false),
+                    Bazofile = table.Column<int>(type: "int", nullable: false),
+                    Eozynofile = table.Column<int>(type: "int", nullable: false),
+                    Limfocyty = table.Column<int>(type: "int", nullable: false),
+                    Monocyty = table.Column<int>(type: "int", nullable: false),
+                    PlytkiKrwiPlt = table.Column<int>(type: "int", nullable: false),
+                    SredniaObjetoscKrwiMpv = table.Column<double>(type: "float", nullable: false),
+                    Zelazo = table.Column<double>(type: "float", nullable: false),
+                    Magnez = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,11 +47,12 @@ namespace BadanieKrwi.Migrations
                 name: "Kliniki",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Adres = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Telefon = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Informacja = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Nazwa = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Lokalizacja = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NumerTelefonu = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    NazwaITelefon = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

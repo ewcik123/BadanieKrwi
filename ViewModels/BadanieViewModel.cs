@@ -1,4 +1,5 @@
 ﻿using BadanieKrwi.Models;
+using BadanieKrwi.Models.Database;
 using BadanieKrwi.Views;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Input;
@@ -135,11 +136,18 @@ namespace BadanieKrwi.ViewModels
             Naglowek = _czyEdytowac
                 ? "Badanie Krwi - Edycja Badnia Krwi"
                 : "Badanie Krwi - Badanie Krwi";
+        }
 
-            //if (_czyEdytowac)
-            //    EdytujZapiszPrzycisk = new ButtonModel("Zapisz", EdytujBadanieCommand, "Zapisz");
-            //else
-            //    EdytujZapiszPrzycisk = new ButtonModel("Edytuj", EdytujBadanieCommand, "Edytuj");
+        private bool Aktualizuj()
+        {
+            if (WybraneBadanie != null)
+            {
+                using AppDbContext cont = new();
+                OryginalneBadanie.AktualizujBadanie(WybraneBadanie);
+                cont.Update(OryginalneBadanie);
+                return cont.SaveChanges() > 0;
+            }
+            return false;
         }
 
         #endregion Main
@@ -150,8 +158,8 @@ namespace BadanieKrwi.ViewModels
         }
 
         private void ExecZapiszZmiany(object obj)
-        {
-            if (obj is BadanieOkno bo)
+        {   
+            if (obj is BadanieOkno bo && Aktualizuj())
                 bo.DialogResult = true;
         }
 

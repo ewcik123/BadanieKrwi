@@ -1,4 +1,5 @@
 ﻿using BadanieKrwi.Models;
+using BadanieKrwi.Models.Database;
 using BadanieKrwi.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -48,6 +49,7 @@ namespace BadanieKrwi.ViewModels
         public TwojeBadanieViewModel()
         {
             Inicjalizacja();
+            WczytajBadania();
         }
         #endregion Constructors
 
@@ -56,7 +58,6 @@ namespace BadanieKrwi.ViewModels
 
         private void Inicjalizacja()
         {
-            InicjalizacjaBadan();
             InicjalizacjaKomend();
             SprawdzTerminKolejnegoBadania();
         }
@@ -83,89 +84,15 @@ namespace BadanieKrwi.ViewModels
             }
         }
 
-        private void InicjalizacjaBadan()
-        {
-            _badania =
-            [
-                 new ()
-                 {
-                     NazwaBadania = "Badanie ",
-                     NazwaKliniki = "Klinika ",
-                     DataBadania = DateTime.Now,
-                     PlytkiKrwiPlt = 1,
-                     SredniaObjetoscKrwiMpv = 2,
-                     Monocyty = 3,
-                     Bazofile = 1,
-                     Eozynofile = 14,
-                     HematokrytHtc = 15,
-                     HemoglobinaHb  = 22,
-                     Limfocyty = 33,
-                     Neutrofile  = 23,
-                     RetikulocytyRc = 15,
-                     RozpietoscRozkladuObjetosciErytrocytowRdwCw = 1,
-                     SredniaMasaHemoglobinyWErytrocycieMch = 4,
-                     SredniaObjetoscErytrocytuMcv = 7,
-                     SrednieStezenieHemoglobinyWErytrocytachMchc = 3,
-                     StezenieErytrocytowRbc = 4,
-                     StezenieLeukocytowWbc = 4,
-                     Zelazo = 2,
-                     Magnez = 1
-                 },
-                 new()
-                 {
-                     NazwaBadania = "Badanie 2",
-                     NazwaKliniki = "Klinika 2",
-                     DataBadania = DateTime.Now.AddDays(2),
-                     PlytkiKrwiPlt = 1,
-                     SredniaObjetoscKrwiMpv = 2,
-                     Monocyty = 4,
-                     Bazofile = 1,
-                     Eozynofile = 14,
-                     HematokrytHtc = 15,
-                     HemoglobinaHb  = 22,
-                     Limfocyty = 22,
-                     Neutrofile  = 25,
-                     RetikulocytyRc = 7,
-                     RozpietoscRozkladuObjetosciErytrocytowRdwCw = 1,
-                     SredniaMasaHemoglobinyWErytrocycieMch = 9,
-                     SredniaObjetoscErytrocytuMcv = 2,
-                     SrednieStezenieHemoglobinyWErytrocytachMchc = 3,
-                     StezenieErytrocytowRbc = 4,
-                     StezenieLeukocytowWbc = 4,
-                     Zelazo = 2,
-                     Magnez = 1
-                 },
-                 new()
-                 {
-                     NazwaBadania = "Badanie 3",
-                     NazwaKliniki = "Klinika 3",
-                     DataBadania = DateTime.Now.AddDays(1).AddHours(4),
-                     PlytkiKrwiPlt = 1,
-                     SredniaObjetoscKrwiMpv = 2,
-                     Monocyty = 34,
-                     Bazofile = 12,
-                     Eozynofile = 9,
-                     HematokrytHtc = 7,
-                     HemoglobinaHb  = 22,
-                     Limfocyty = 15,
-                     Neutrofile  = 23,
-                     RetikulocytyRc = 15,
-                     RozpietoscRozkladuObjetosciErytrocytowRdwCw = 1,
-                     SredniaMasaHemoglobinyWErytrocycieMch = 4,
-                     SredniaObjetoscErytrocytuMcv = 5,
-                     SrednieStezenieHemoglobinyWErytrocytachMchc = 5,
-                     StezenieErytrocytowRbc = 6,
-                     StezenieLeukocytowWbc = 7,
-                     Zelazo = 2,
-                     Magnez = 1
-                 },
-            ];
-        }
-
         private void InicjalizacjaKomend()
         {
             SzczegolyCommand = new RelayCommand(ExecSzczegolyCommand, x => WybraneBadanie != null);
             WrocCommand = new RelayCommand(ExecWrocCommand);
+        }
+        private void WczytajBadania()
+        {
+            using AppDbContext cont = new();
+            Badania = new ObservableCollection<BadanieModel>([.. cont.Badania]);
         }
 
         #endregion Main

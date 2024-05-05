@@ -1,8 +1,5 @@
-﻿using BadanieKrwi.Data_Base;
-using System.Collections;
+﻿using BadanieKrwi.Models.Database;
 using System.Security.Cryptography;
-using System.Text;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace BadanieKrwi.Models
 {

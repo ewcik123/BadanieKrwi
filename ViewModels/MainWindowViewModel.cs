@@ -1,5 +1,5 @@
-﻿using BadanieKrwi.Data_Base;
-using BadanieKrwi.Models;
+﻿using BadanieKrwi.Models;
+using BadanieKrwi.Models.Database;
 using BadanieKrwi.Views;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
@@ -120,7 +120,6 @@ namespace BadanieKrwi.ViewModels
         private void Inicializacja()
         {
             RejestracjaVM = new();
-
             InicjalizacjaKomend();
         }
 
@@ -136,19 +135,6 @@ namespace BadanieKrwi.ViewModels
         private void ExecRejestracjaWidok(object obj)
         {
             PrzejdzDoRejestracji();
-            //if (obj is MainWindow mw)
-            //{
-            //    RejestracjaOkno rejWindow = new();
-            //    rejWindow.Closing += ((sender, args) =>
-            //    {
-            //        mw.ShowInTaskbar = true;
-            //        mw.WindowState = WindowState.Normal;
-            //    });
-
-            //    rejWindow.Show();
-            //    mw.ShowInTaskbar = false;
-            //    mw.WindowState = WindowState.Minimized;
-            //}
         }
 
         private async void ExecRejestracja(object obj)
@@ -160,7 +146,6 @@ namespace BadanieKrwi.ViewModels
                     Imie = RejestracjaVM.Imie,
                     Nazwisko = RejestracjaVM.Nazwisko,
                     Email = RejestracjaVM.Email,
-                    HasloHash = RejestracjaVM.Haslo.GetHashCode().ToString(), // Hashujemy hasło
                     Wiek = RejestracjaVM.Wiek,
                     Plec = RejestracjaVM.Plec,
                     DataRejestracji = DateTime.Now

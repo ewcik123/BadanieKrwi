@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BadanieKrwi.Data_Base
+﻿namespace BadanieKrwi.Models.Database
 {
     public class Uzytkownik
     {

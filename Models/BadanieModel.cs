@@ -1,8 +1,11 @@
-﻿namespace BadanieKrwi.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BadanieKrwi.Models
 {
     public class BadanieModel : KlasaBazowa
     {
         #region Properties
+        [NotMapped]
         public bool CzyZmodyfikowano { get; set; }
 
         private Guid _id;
@@ -339,16 +342,48 @@
         #region Constructors
         public BadanieModel()
         {
-            Id = Guid.NewGuid();
-            DataBadania = DateTime.Now;
+            DomyslneWartosci();
             CzyZmodyfikowano = false;
         }
 
         public BadanieModel(BadanieModel badanie)
         {
+            AktualizujBadanie(badanie);
+        }
+        #endregion Constructors
+
+        #region Methods
+        private void DomyslneWartosci()
+        {
+            DataBadania = DateTime.Now;
+            NazwaBadania = null;
+            NazwaKliniki = null;
+            StezenieErytrocytowRbc = 1;
+            HemoglobinaHb = 1;
+            HematokrytHtc = 1;
+            SredniaMasaHemoglobinyWErytrocycieMch = 1;
+            SredniaObjetoscErytrocytuMcv = 1;
+            SrednieStezenieHemoglobinyWErytrocytachMchc = 1;
+            RozpietoscRozkladuObjetosciErytrocytowRdwCw = 1;
+            RetikulocytyRc = 1;
+            StezenieLeukocytowWbc = 1;
+            Neutrofile = 1;
+            Bazofile = 1;
+            Eozynofile = 1;
+            Limfocyty = 1;
+            Monocyty = 1;
+            PlytkiKrwiPlt = 1;
+            SredniaObjetoscKrwiMpv = 1;
+            Zelazo = 1;
+            Magnez = 1;
+        }
+
+        public void AktualizujBadanie(BadanieModel badanie)
+        {
             if (badanie == null)
                 return;
 
+            DataBadania = badanie.DataBadania;
             Id = badanie.Id;
             NazwaBadania = badanie.NazwaBadania;
             DataBadania = badanie.DataBadania;
@@ -356,6 +391,7 @@
             StezenieErytrocytowRbc = badanie.StezenieErytrocytowRbc;
             HemoglobinaHb = badanie.HemoglobinaHb;
             HematokrytHtc = badanie.HematokrytHtc;
+            SredniaMasaHemoglobinyWErytrocycieMch = badanie.SredniaMasaHemoglobinyWErytrocycieMch;
             SredniaObjetoscErytrocytuMcv = badanie.SredniaObjetoscErytrocytuMcv;
             SrednieStezenieHemoglobinyWErytrocytachMchc = badanie.SrednieStezenieHemoglobinyWErytrocytachMchc;
             RozpietoscRozkladuObjetosciErytrocytowRdwCw = badanie.RozpietoscRozkladuObjetosciErytrocytowRdwCw;
@@ -371,6 +407,8 @@
             Zelazo = badanie.Zelazo;
             Magnez = badanie.Magnez;
         }
-        #endregion Constructors
+
+
+        #endregion Methods
     }
 }
