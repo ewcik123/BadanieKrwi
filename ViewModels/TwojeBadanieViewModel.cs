@@ -1,7 +1,6 @@
 ﻿using BadanieKrwi.Models;
 using BadanieKrwi.Views;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace BadanieKrwi.ViewModels
