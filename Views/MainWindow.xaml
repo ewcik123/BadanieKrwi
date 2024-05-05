@@ -14,7 +14,6 @@
     Height="520"
     dialog:DialogParticipation.Register="{Binding}"
     ResizeMode="NoResize"
-    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <ctrl:MetroWindow.DataContext>
         <vm:MainWindowViewModel />

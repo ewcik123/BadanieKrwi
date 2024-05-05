@@ -10,9 +10,10 @@
     xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
     x:Name="kalendarzBadan"
     Title="Badanie Krwi - Kalendarz Badań"
-    Width="800"
+    Width="500"
     Height="450"
     dialog:DialogParticipation.Register="{Binding}"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <ctrl:MetroWindow.DataContext>

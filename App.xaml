@@ -14,7 +14,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="{x:Type ctrl:MetroWindow}">
-                <Setter Property="GlowBrush" Value="Black" />
+                <Setter Property="GlowBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
                 <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
                 <Setter Property="WindowTransitionsEnabled" Value="False" />
             </Style>

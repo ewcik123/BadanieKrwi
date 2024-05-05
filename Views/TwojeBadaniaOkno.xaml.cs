@@ -3,11 +3,11 @@
 namespace BadanieKrwi.Views
 {
     /// <summary>
-    /// Interaction logic for TwojeBadanieOkno.xaml
+    /// Interaction logic for TwojeBadaniaOkno.xaml
     /// </summary>
-    public partial class TwojeBadanieOkno : MetroWindow
+    public partial class TwojeBadaniaOkno : MetroWindow
     {
-        public TwojeBadanieOkno()
+        public TwojeBadaniaOkno()
         {
             InitializeComponent();
         }

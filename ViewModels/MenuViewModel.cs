@@ -54,7 +54,7 @@ namespace BadanieKrwi.ViewModels
 
         private void ExecTwojeBadanieWidok(object obj)
         {
-            TwojeBadanieOkno badanieWindow = new();
+            TwojeBadaniaOkno badanieWindow = new();
             badanieWindow.ShowDialog();
         }
 

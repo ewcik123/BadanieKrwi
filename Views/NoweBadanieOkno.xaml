@@ -13,6 +13,7 @@
     Width="477"
     Height="840"
     dialog:DialogParticipation.Register="{Binding}"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <ctrl:MetroWindow.DataContext>

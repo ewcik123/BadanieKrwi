@@ -62,8 +62,10 @@ namespace BadanieKrwi.ViewModels
             SprawdzTerminKolejnegoBadania();
         }
 
-        private void SprawdzTerminKolejnegoBadania()
+        private async void SprawdzTerminKolejnegoBadania()
         {
+            return;
+
             if (Badania == null || Badania.Count == 0)
                 return;
 
@@ -77,7 +79,7 @@ namespace BadanieKrwi.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Błąd podczas wysyłania powiadomienia:\n{ex.Message}");
+                    await ShowMessageAsync($"Błąd podczas wysyłania powiadomienia:\n{ex.Message}", "Sprawdzenie kolejnego wolnego terminu", this);
                 }
             }
         }
@@ -171,7 +173,7 @@ namespace BadanieKrwi.ViewModels
 
         private void ExecWrocCommand(object obj)
         {
-            if (obj is TwojeBadanieOkno tbo)
+            if (obj is TwojeBadaniaOkno tbo)
                 tbo.Close();
         }
 
