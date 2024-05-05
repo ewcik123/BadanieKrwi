@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Files\Images\BadanieKrwi-Ikona.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,11 @@
     <None Remove="Files\Images\BadanieKrwi - Logo.webp" />
     <None Remove="Files\Images\BadanieKrwi-Logo.png" />
     <None Remove="Files\Images\BadanieKrwi-LogoTlo.png" />
+    <None Remove="Files\Images\Bez nazwy.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Files\Images\BadanieKrwi-Ikona.ico" />
   </ItemGroup>
 
   <ItemGroup>

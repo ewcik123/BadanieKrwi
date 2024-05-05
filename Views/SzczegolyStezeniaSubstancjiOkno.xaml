@@ -12,6 +12,7 @@
     Title="Badanie Krwi - Szczgóły Stężenia Substancji"
     Width="800"
     Height="500"
+    Icon="/Files/Images/BadanieKrwi-Ikona.ico"
     ResizeMode="CanResizeWithGrip"
     ShowMaxRestoreButton="False"
     ShowMinButton="False"

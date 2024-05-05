@@ -13,6 +13,7 @@
     Width="800"
     Height="400"
     dialog:DialogParticipation.Register="{Binding}"
+    Icon="/Files/Images/BadanieKrwi-Ikona.ico"
     ResizeMode="CanResizeWithGrip"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

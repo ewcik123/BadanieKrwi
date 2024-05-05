@@ -153,27 +153,30 @@ namespace BadanieKrwi.ViewModels
 
         private async void ExecRejestracja(object obj)
         {
-            Uzytkownik nowyUzytkownik = new()
+            if (obj is MainWindow mw)
             {
-                Imie = RejestracjaVM.Imie,
-                Nazwisko = RejestracjaVM.Nazwisko,
-                Email = RejestracjaVM.Email,
-                HasloHash = RejestracjaVM.Haslo.GetHashCode().ToString(), // Hashujemy hasło
-                Wiek = RejestracjaVM.Wiek,
-                Plec = RejestracjaVM.Plec,
-                DataRejestracji = DateTime.Now
-            };
+                Uzytkownik nowyUzytkownik = new()
+                {
+                    Imie = RejestracjaVM.Imie,
+                    Nazwisko = RejestracjaVM.Nazwisko,
+                    Email = RejestracjaVM.Email,
+                    HasloHash = RejestracjaVM.Haslo.GetHashCode().ToString(), // Hashujemy hasło
+                    Wiek = RejestracjaVM.Wiek,
+                    Plec = RejestracjaVM.Plec,
+                    DataRejestracji = DateTime.Now
+                };
 
-            if (UwierzytelnianieSerwis.CzyUzytkownikIstnieje(RejestracjaVM.Email))
-            {
-                await ShowMessageAsync("Użytkownik już zarejestrowany", "Rejestracja", this, DialogCoordinator);
-                return;
-            }
+                if (UwierzytelnianieSerwis.CzyUzytkownikIstnieje(RejestracjaVM.Email))
+                {
+                    await ShowMessageAsync("Użytkownik już zarejestrowany", "Rejestracja", this, DialogCoordinator);
+                    return;
+                }
 
-            if (await UwierzytelnianieSerwis.RejestracjaAsync(nowyUzytkownik, RejestracjaVM.Haslo))
-            {
-                await ShowMessageAsync("Twoje dane zostały zapisane", "Rejestracja", this, DialogCoordinator);
-                PrzejdzDoLogowania();
+                if (await UwierzytelnianieSerwis.RejestracjaAsync(nowyUzytkownik, RejestracjaVM.Haslo))
+                {
+                    await ShowMessageAsync("Twoje dane zostały zapisane", "Rejestracja", this, DialogCoordinator);
+                    Logowanie(mw);
+                }
             }
         }
 

@@ -13,6 +13,7 @@
     Width="600"
     Height="520"
     dialog:DialogParticipation.Register="{Binding}"
+    Icon="/Files/Images/BadanieKrwi-Ikona.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -193,7 +194,10 @@
                     Margin="0,10,0,3"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
-                    <Button Command="{Binding RejestracjaCommand}" Content="Zarejestruj się" />
+                    <Button
+                        Command="{Binding RejestracjaCommand}"
+                        CommandParameter="{Binding ElementName=mainWindow}"
+                        Content="Zarejestruj się" />
                     <Button
                         Grid.Row="1"
                         Command="{Binding PowrotDoLogowaniaCommand}"

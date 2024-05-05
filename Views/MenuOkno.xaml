@@ -10,6 +10,7 @@
     Title="Badanie Krwi"
     Width="344"
     Height="239"
+    Icon="/Files/Images/BadanieKrwi-Ikona.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
