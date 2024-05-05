@@ -4,12 +4,89 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctrl="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     xmlns:local="clr-namespace:BadanieKrwi.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="StatystykiOkno"
-    Width="800"
-    Height="450"
+    xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
+    x:Name="statystyki"
+    Title="Badanie Krwi - Statystyki"
+    Width="403"
+    Height="500"
+    dialog:DialogParticipation.Register="{Binding}"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid />
+    <ctrl:MetroWindow.DataContext>
+        <vm:StatystykiViewModel />
+    </ctrl:MetroWindow.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.ColumnSpan="2"
+            Style="{StaticResource topTextBlock30}"
+            Text="Statystyki" />
+        <TextBox
+            Grid.Row="1"
+            Grid.Column="2"
+            Width="50"
+            HorizontalAlignment="Left"
+            IsReadOnly="True"
+            Text="{Binding TwojaIloscBadan}" />
+
+        <TextBlock Grid.Row="1" Text="Twoja ilość badań" />
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="2"
+            Width="50"
+            HorizontalAlignment="Left"
+            IsReadOnly="True"
+            Text="{Binding BadanieWTymRoku}" />
+        <TextBlock Grid.Row="2" Text="Badanie w tym roku" />
+        <TextBox
+            Grid.Row="3"
+            Grid.Column="2"
+            Width="50"
+            HorizontalAlignment="Left"
+            IsReadOnly="True"
+            Text="{Binding SredniCzas}" />
+        <TextBlock Grid.Row="3" Text="Sredni czas pomiędzy badaniami" />
+        <TextBlock
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Margin="6"
+            Style="{StaticResource topTextBlock20}"
+            Text="Stężenie substancji" />
+
+        <ScrollViewer Grid.Row="5" Grid.ColumnSpan="2">
+            <ItemsControl ItemsSource="{Binding PrzyciskiStezeniaSubstrancji}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding Command}" CommandParameter="{Binding CommandParameter}">
+                            <TextBlock Text="{Binding Content}" TextWrapping="Wrap" />
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <Button
+            Grid.Row="6"
+            Grid.ColumnSpan="2"
+            Width="100"
+            Command="{Binding WrocCommand}"
+            CommandParameter="{Binding ElementName=statystyki}"
+            Content="Wróć" />
+    </Grid>
 </ctrl:MetroWindow>

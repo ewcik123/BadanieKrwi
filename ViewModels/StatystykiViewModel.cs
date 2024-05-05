@@ -1,5 +1,6 @@
 ﻿using BadanieKrwi.Models;
 using BadanieKrwi.Views;
+using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Input;
 
 namespace BadanieKrwi.ViewModels
@@ -7,6 +8,7 @@ namespace BadanieKrwi.ViewModels
     public class StatystykiViewModel : KlasaBazowa
     {
         #region Properties
+        public IDialogCoordinator DialogCoordinator { get; set; }
         public string TwojaIloscBadan { get; set; }
         public string BadanieWTymRoku { get; set; }
 

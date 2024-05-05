@@ -14,13 +14,13 @@
     Height="520"
     dialog:DialogParticipation.Register="{Binding}"
     ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <ctrl:MetroWindow.DataContext>
         <vm:MainWindowViewModel />
     </ctrl:MetroWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -29,15 +29,8 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Center"
-            FontSize="24"
-            FontWeight="Bold"
-            Text="{Binding TekstEtykietyOkna}" />
-
         <Image
-            Grid.Row="2"
+            Grid.Row="1"
             Width="220"
             Height="220"
             Margin="3"
@@ -45,11 +38,9 @@
             Source="/Files/Images/BadanieKrwi-Logo.png"
             Stretch="Uniform" />
 
-        <Separator Grid.Row="1" Grid.ColumnSpan="2" />
-
         <Grid
             x:Name="gridLogowania"
-            Grid.Row="2"
+            Grid.Row="1"
             Grid.Column="1"
             Margin="0,0,20,0"
             VerticalAlignment="Center"
@@ -61,32 +52,38 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Text="E-mail" />
+            <TextBlock
+                Grid.Column="1"
+                Style="{StaticResource topTextBlock30}"
+                Text="Logowanie" />
+
+            <TextBlock Grid.Row="1" Text="E-mail" />
             <TextBox
-                Grid.Row="1"
+                Grid.Row="2"
                 ctrl:TextBoxHelper.ClearTextButton="True"
                 ctrl:TextBoxHelper.Watermark="Podaj e-mail.."
                 Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Row="2" Text="Hasło" />
+            <TextBlock Grid.Row="3" Text="Hasło" />
             <PasswordBox
-                Grid.Row="3"
+                Grid.Row="4"
                 Margin="3"
                 VerticalAlignment="Center"
                 ctrl:PasswordBoxBindingBehavior.Password="{Binding Haslo, UpdateSourceTrigger=PropertyChanged}"
                 ctrl:TextBoxHelper.ClearTextButton="True"
                 ctrl:TextBoxHelper.Watermark="Podaj hasło.." />
 
-            <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <StackPanel Grid.Row="5" Orientation="Horizontal">
                 <TextBlock Text="Nie masz jeszcze konta?" />
                 <TextBlock>
                     <Hyperlink Command="{Binding RejestracjaWidokCommand}" CommandParameter="{Binding ElementName=mainWindow}">Zarejestruj się</Hyperlink>
                 </TextBlock>
             </StackPanel>
             <Button
-                Grid.Row="5"
+                Grid.Row="6"
                 Margin="0,20,0,0"
                 Command="{Binding LogowanieWidokCommand}"
                 CommandParameter="{Binding ElementName=mainWindow}"
@@ -94,13 +91,23 @@
         </Grid>
 
         <Grid
-            Grid.Row="2"
+            Grid.Row="1"
             Grid.Column="1"
             Margin="0,0,20,0"
             VerticalAlignment="Center"
             Visibility="{Binding PokazGridRejestracji, UpdateSourceTrigger=PropertyChanged}">
 
-            <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Column="1"
+                Style="{StaticResource topTextBlock30}"
+                Text="Rejestracja" />
+
+            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
