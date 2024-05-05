@@ -72,13 +72,20 @@ namespace BadanieKrwi.ViewModels
         }
 
         #endregion Main
-        private void ExecPrzyciskiStezeniaSubstrancji(object obj)
+        private async void ExecPrzyciskiStezeniaSubstrancji(object obj)
         {
             if (obj is string nazwaStezeniaSubstancji)
             {
-                SzczegolyStezeniaSubstancjiOkno sssOkno = new();
-                (sssOkno.DataContext as SzczegolyStezeniaSubstancjiViewModel).InicjalizacjaWykres(nazwaStezeniaSubstancji);
-                sssOkno.ShowDialog();
+                try
+                {
+                    SzczegolyStezeniaSubstancjiOkno sssOkno = new();
+                    (sssOkno.DataContext as SzczegolyStezeniaSubstancjiViewModel)!.InicjalizacjaWykres(nazwaStezeniaSubstancji);
+                    sssOkno.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    await ShowMessageAsync(ex.Message, "Stężenie substancji", this, DialogCoordinator);
+                }
             }
         }
 

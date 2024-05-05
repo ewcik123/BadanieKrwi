@@ -2,6 +2,7 @@
 using BadanieKrwi.Views;
 using LiveCharts;
 using LiveCharts.Wpf;
+using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Input;
 
 namespace BadanieKrwi.ViewModels
@@ -9,6 +10,8 @@ namespace BadanieKrwi.ViewModels
     public class SzczegolyStezeniaSubstancjiViewModel : KlasaBazowa
     {
         #region Properties
+        public IDialogCoordinator DialogCoordinator { get; set; }
+
         private SeriesCollection _serieNaWykresie;
         public SeriesCollection SerieNaWykresie
         {
@@ -76,16 +79,15 @@ namespace BadanieKrwi.ViewModels
             if (string.IsNullOrWhiteSpace(nazwaStezeniaSubstancji))
             {
                 Naglowek = "Jakaś tam nazwa stężenia substancji";
-                SerieNaWykresie = new()
-                {
+                SerieNaWykresie =
+                [
                     new LineSeries
                     {
                         Values = new ChartValues<int>{2,4,6,7,10,18,20,21,30 }
                     }
-                };
+                ];
 
                 EtykietyX = ["2", "4", "6", "7", "10", "18", "20", "21", "30"];
-
                 return;
             }
 
@@ -106,9 +108,7 @@ namespace BadanieKrwi.ViewModels
         static List<int> GeneratorUnikalnychLiczbCalkowitych(int start, int koniec, int iloscLiczbDoWygenerowania)
         {
             if (iloscLiczbDoWygenerowania > (koniec - start + 1))
-            {
                 throw new ArgumentException("Liczba unikalnych liczb nie może przekraczać rozmiaru zakresu.");
-            }
 
             List<int> result = [];
             Random rand = new();
