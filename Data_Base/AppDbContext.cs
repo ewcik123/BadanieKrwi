@@ -12,11 +12,6 @@ namespace BadanieKrwi.Data_Base
         public DbSet<Badania> Badania { get; set; }
         public DbSet<Kliniki> Kliniki { get; set; }
 
-        public AppDbContext()
-        {
-            Database.Migrate();
-        }
-
         // uzycie SQL serwera i connectionString, który jest odczytywany z App.config
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {            
