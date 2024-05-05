@@ -1,5 +1,6 @@
 ﻿using BadanieKrwi.Models;
 using BadanieKrwi.Views;
+using MahApps.Metro.Controls.Dialogs;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -8,6 +9,8 @@ namespace BadanieKrwi.ViewModels
     public class KlinikiViewModel : KlasaBazowa
     {
         #region Properties
+        public IDialogCoordinator DialogCoordinator { get; set; }
+
         private ObservableCollection<Klinika> _kliniki;
         public ObservableCollection<Klinika> Kliniki
         {

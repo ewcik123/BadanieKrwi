@@ -1,7 +1,6 @@
 ﻿using BadanieKrwi.Models;
 using BadanieKrwi.Views;
 using MahApps.Metro.Controls.Dialogs;
-using System.Windows;
 using System.Windows.Input;
 
 namespace BadanieKrwi.ViewModels

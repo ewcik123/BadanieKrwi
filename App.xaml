@@ -34,7 +34,6 @@
                 x:Key="topTextBlock20"
                 BasedOn="{StaticResource MahApps.Styles.TextBlock}"
                 TargetType="{x:Type TextBlock}">
-                <Setter Property="Margin" Value="3" />
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="FontWeight" Value="Bold" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -45,7 +44,6 @@
                 x:Key="topTextBlock30"
                 BasedOn="{StaticResource MahApps.Styles.TextBlock}"
                 TargetType="{x:Type TextBlock}">
-                <Setter Property="Margin" Value="3" />
                 <Setter Property="FontSize" Value="30" />
                 <Setter Property="FontWeight" Value="Bold" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
