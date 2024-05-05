@@ -1,5 +1,6 @@
 ﻿using BadanieKrwi.Models;
 using BadanieKrwi.Views;
+using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Input;
 
 namespace BadanieKrwi.ViewModels
@@ -7,6 +8,8 @@ namespace BadanieKrwi.ViewModels
     public class BadanieViewModel : KlasaBazowa
     {
         #region Properties
+        public IDialogCoordinator DialogCoordinator { get; set; }
+
         public BadanieModel OryginalneBadanie { get; set; }
 
         private bool _czyEdytowac;
@@ -130,8 +133,8 @@ namespace BadanieKrwi.ViewModels
         private void AktualizacjaNaglowkaIPrzyciskuZapisuEdycji()
         {
             Naglowek = _czyEdytowac
-                ? "Edycja Badnia Krwii"
-                : "Badanie Krwii";
+                ? "Badanie Krwi - Edycja Badnia Krwi"
+                : "Badanie Krwi - Badanie Krwi";
 
             //if (_czyEdytowac)
             //    EdytujZapiszPrzycisk = new ButtonModel("Zapisz", EdytujBadanieCommand, "Zapisz");

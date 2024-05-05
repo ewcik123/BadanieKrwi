@@ -32,6 +32,14 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Image
+            Grid.RowSpan="5"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            Opacity="0.2"
+            Source="/Files/Images/BadanieKrwi-LogoTlo.png"
+            Stretch="Uniform" />
+
         <TextBlock
             Grid.ColumnSpan="2"
             Style="{StaticResource topTextBlock30}"

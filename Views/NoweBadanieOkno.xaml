@@ -11,7 +11,7 @@
     x:Name="noweBadanie"
     Title="Badanie Krwi - Nowe Badanie"
     Width="477"
-    Height="840"
+    Height="806"
     dialog:DialogParticipation.Register="{Binding}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
