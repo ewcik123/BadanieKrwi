@@ -54,13 +54,15 @@
 
             <Button
                 Grid.Row="2"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
                 Command="{Binding StatystykiCommand}"
                 Content="Statystyki" />
-            <Button
+            <!--<Button
                 Grid.Row="2"
                 Grid.Column="1"
                 Command="{Binding InformacjeCommand}"
-                Content="Informacje" />
+                Content="Informacje" />-->
         </Grid>
     </Grid>
 </ctrl:MetroWindow>
