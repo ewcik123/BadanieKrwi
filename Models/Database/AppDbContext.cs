@@ -11,6 +11,7 @@ namespace BadanieKrwi.Models.Database
         public DbSet<Uzytkownik> Uzytkownik { get; set; }
         public DbSet<BadanieModel> Badania { get; set; }
         public DbSet<Klinika> Kliniki { get; set; }
+        public DbSet<KalendarzBadanModel> Kalendarz { get; set; }
 
         // uzycie SQL serwera i connectionString, który jest odczytywany z App.config
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -59,29 +59,6 @@ namespace BadanieKrwi.ViewModels
         private void Inicjalizacja()
         {
             InicjalizacjaKomend();
-            SprawdzTerminKolejnegoBadania();
-        }
-
-        private async void SprawdzTerminKolejnegoBadania()
-        {
-            return;
-
-            if (Badania == null || Badania.Count == 0)
-                return;
-
-            var obecnaData = DateTime.Now;
-            var badanieZJutra = Badania.FirstOrDefault(x => x.DataBadania.Day == obecnaData.Day + 1 && x.DataBadania.Month == obecnaData.Month && x.DataBadania.Year == obecnaData.Year);
-            if (badanieZJutra != null)
-            {
-                try
-                {
-                    MenadzerPowiadomien.Instance.WyslijPowiadomienieOBadaniu(badanieZJutra.DataBadania);
-                }
-                catch (Exception ex)
-                {
-                    await ShowMessageAsync($"Błąd podczas wysyłania powiadomienia:\n{ex.Message}", "Sprawdzenie kolejnego wolnego terminu", this);
-                }
-            }
         }
 
         private void InicjalizacjaKomend()
@@ -106,12 +83,13 @@ namespace BadanieKrwi.ViewModels
         private void ExecSzczegolyCommand(object obj)
         {
             BadanieOkno bo = new();
-            ((BadanieViewModel)bo.DataContext).NaglowekOkna = $"Szczegóły Badnia: {WybraneBadanie.NazwaBadania}";
-            ((BadanieViewModel)bo.DataContext).OryginalneBadanie = WybraneBadanie;
-            ((BadanieViewModel)bo.DataContext).WybraneBadanie = new BadanieModel(WybraneBadanie);
+            var dc = ((BadanieViewModel)bo.DataContext);
+            dc.NaglowekOkna = $"Szczegóły Badnia: {WybraneBadanie.TypBadania}";
+            dc.OryginalneBadanie = WybraneBadanie;
+            dc.WybraneBadanie = new BadanieModel(WybraneBadanie);
             if (bo.ShowDialog().Value)
             {
-                Badania[Badania.IndexOf(WybraneBadanie)] = ((BadanieViewModel)bo.DataContext).WybraneBadanie;
+                Badania[Badania.IndexOf(WybraneBadanie)] = dc.WybraneBadanie;
             }
             WybraneBadanie = null;
         }

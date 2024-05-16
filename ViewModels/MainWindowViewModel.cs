@@ -90,7 +90,7 @@ namespace BadanieKrwi.ViewModels
             get => _rejestracjaVM;
             set
             {
-                if(_rejestracjaVM != value)
+                if (_rejestracjaVM != value)
                 {
                     _rejestracjaVM = value;
                     OnPropertyChanged();
@@ -150,6 +150,9 @@ namespace BadanieKrwi.ViewModels
                     Plec = RejestracjaVM.Plec,
                     DataRejestracji = DateTime.Now
                 };
+
+                Email = RejestracjaVM.Email;
+                Haslo = RejestracjaVM.Haslo;
 
                 if (UwierzytelnianieSerwis.CzyUzytkownikIstnieje(RejestracjaVM.Email))
                 {

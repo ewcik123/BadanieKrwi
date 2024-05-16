@@ -5,8 +5,10 @@
     xmlns:ctrl="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BadanieKrwi.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
     x:Name="noweBadanie"
     Title="Badanie Krwi - Nowe Badanie"
@@ -23,6 +25,11 @@
     <ctrl:MetroWindow.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </ctrl:MetroWindow.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=dataBadania_dataPicker}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Margin="3,0,3,0">
         <Grid.RowDefinitions>
@@ -54,28 +61,31 @@
 
         <TextBlock Grid.Row="1" Text="Data badania" />
         <DatePicker
+            x:Name="dataBadania_dataPicker"
             Grid.Row="1"
             Grid.Column="1"
             ctrl:TextBoxHelper.Watermark="Wybierz datę badania.."
             SelectedDate="{Binding NoweBadanie.DataBadania}" />
 
-        <TextBlock Grid.Row="2" Text="Nazwa Badania" />
-        <TextBox
+        <TextBlock Grid.Row="2" Text="Typ Badania" />
+        <ComboBox
             Grid.Row="2"
             Grid.Column="2"
             ctrl:TextBoxHelper.ClearTextButton="True"
             ctrl:TextBoxHelper.SelectAllOnFocus="True"
-            ctrl:TextBoxHelper.Watermark="Podaj nazwę badania.."
-            Text="{Binding NoweBadanie.NazwaBadania, UpdateSourceTrigger=PropertyChanged}" />
+            ctrl:TextBoxHelper.Watermark="Wybierz typ badania.."
+            ItemsSource="{Binding TypyBadania}"
+            Text="{Binding NoweBadanie.TypBadania, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Grid.Row="3" Text="Nazwa Kliniki" />
-        <TextBox
+        <ComboBox
             Grid.Row="3"
             Grid.Column="2"
             ctrl:TextBoxHelper.ClearTextButton="True"
             ctrl:TextBoxHelper.SelectAllOnFocus="True"
-            ctrl:TextBoxHelper.Watermark="Podaj nazwę kliniki.."
-            Text="{Binding NoweBadanie.NazwaKliniki, UpdateSourceTrigger=PropertyChanged}" />
+            ctrl:TextBoxHelper.Watermark="Wybierz klinikę.."
+            ItemsSource="{Binding Kliniki}"
+            SelectedItem="{Binding NoweBadanie.NazwaKliniki, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock
             Grid.Row="4"

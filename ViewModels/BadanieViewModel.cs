@@ -2,6 +2,7 @@
 using BadanieKrwi.Models.Database;
 using BadanieKrwi.Views;
 using MahApps.Metro.Controls.Dialogs;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace BadanieKrwi.ViewModels
@@ -86,6 +87,48 @@ namespace BadanieKrwi.ViewModels
             }
         }
 
+        private ObservableCollection<string> _typyBadan;
+        public ObservableCollection<string> TypyBadan
+        {
+            get => _typyBadan;
+            set
+            {
+                if(_typyBadan != value)
+                {
+                    _typyBadan = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private ObservableCollection<string> _kliniki;
+        public ObservableCollection<string> Kliniki
+        {
+            get => _kliniki;
+            set
+            {
+                if(_kliniki != value)
+                {
+                    _kliniki = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _wybranyTypBadan;
+        public string WybranyTypBadan
+        {
+            get => _wybranyTypBadan;
+            set
+            {
+                if(_wybranyTypBadan != value)
+                {
+                    _wybranyTypBadan = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ButtonModel EdytujBadaniePrzycisk { get; set; }
         public ButtonModel ZapiszZmianyPrzycisk { get; set; }
         public ButtonModel PrzerwijEdycjePrzycisk { get; set; }
@@ -120,7 +163,15 @@ namespace BadanieKrwi.ViewModels
             ZapiszZmianyPrzycisk = new ButtonModel("Zapisz", ZapiszZmianyCommand, "Zapisz");
             PrzerwijEdycjePrzycisk = new ButtonModel("Przerwij", PrzerwijEdycjeCommand, null);
             WrocPrzycisk = new ButtonModel("Wróć", WrocCommand, null);
+            TypyBadan = new ObservableCollection<string>(Globals.TypyBadan);
             AktualizacjaNaglowkaIPrzyciskuZapisuEdycji();
+            InicjalizacjaKlinik();
+        }
+
+        private void InicjalizacjaKlinik()
+        {
+            using AppDbContext cont = new();
+            Kliniki = new ObservableCollection<string>([.. cont.Kliniki.Select(x => x.Nazwa)]);
         }
 
         private void InicjalizacjaKomend()

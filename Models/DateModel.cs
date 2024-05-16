@@ -30,14 +30,14 @@
         private void InicjalizacjaGodzin()
         {
             Godziny = [];
-            for (int i = 1; i <= 24; i++)
+            for (int i = 0; i <= 24; i++)
                 Godziny.Add(i);
         }
 
         private void InicjalizacjaMinut()
         {
             Minuty = [];
-            for (int i = 1; i <= 60; i++)
+            for (int i = 0; i <= 60; i++)
                 Minuty.Add(i);
         }
     }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BadanieKrwi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240505200707_Inicjalizacja")]
+    [Migration("20240516211100_Inicjalizacja")]
     partial class Inicjalizacja
     {
         /// <inheritdoc />
@@ -55,10 +55,6 @@ namespace BadanieKrwi.Migrations
                     b.Property<int>("Monocyty")
                         .HasColumnType("int");
 
-                    b.Property<string>("NazwaBadania")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("NazwaKliniki")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -93,6 +89,10 @@ namespace BadanieKrwi.Migrations
                     b.Property<int>("StezenieLeukocytowWbc")
                         .HasColumnType("int");
 
+                    b.Property<string>("TypBadania")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Zelazo")
                         .HasColumnType("float");
 
@@ -103,11 +103,9 @@ namespace BadanieKrwi.Migrations
 
             modelBuilder.Entity("BadanieKrwi.Models.Database.Uzytkownik", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DataRejestracji")
                         .HasColumnType("datetime2");
@@ -142,6 +140,36 @@ namespace BadanieKrwi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Uzytkownik");
+                });
+
+            modelBuilder.Entity("BadanieKrwi.Models.KalendarzBadanModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("CzyUstawionoPrzypomnienie")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DataBadania")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("IdKliniki")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdUzytkownika")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Tresc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypBadania")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kalendarz");
                 });
 
             modelBuilder.Entity("BadanieKrwi.Models.Klinika", b =>

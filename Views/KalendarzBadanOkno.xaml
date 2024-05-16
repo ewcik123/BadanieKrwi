@@ -5,12 +5,13 @@
     xmlns:ctrl="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BadanieKrwi.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
     x:Name="kalendarzBadan"
     Title="Badanie Krwi - Kalendarz Badań"
-    Width="500"
+    Width="550"
     Height="450"
     dialog:DialogParticipation.Register="{Binding}"
     Icon="/Files/Images/BadanieKrwi-Ikona.ico"
@@ -20,8 +21,14 @@
     <ctrl:MetroWindow.DataContext>
         <vm:KalendarzBadaniaViewModel />
     </ctrl:MetroWindow.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=dataBadania_dataPicker}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -51,7 +58,7 @@
             Grid.Row="1"
             Grid.Column="2"
             Orientation="Horizontal">
-            <DatePicker SelectedDate="{Binding DataBadania.Data}" />
+            <DatePicker x:Name="dataBadania_dataPicker" SelectedDate="{Binding DataBadania.Data}" />
             <ComboBox
                 Width="60"
                 ItemsSource="{Binding DataBadania.Godziny}"
@@ -70,11 +77,21 @@
             </Grid.ColumnDefinitions>
             <ComboBox
                 Grid.Column="1"
+                ctrl:TextBoxHelper.Watermark="Wybierz klinikę.."
+                DisplayMemberPath="Nazwa"
                 ItemsSource="{Binding Kliniki}"
                 SelectedItem="{Binding WybranaKlinika}" />
         </Grid>
 
-        <Grid Grid.Row="3" Grid.ColumnSpan="3">
+        <TextBlock Grid.Row="3" Text="Wybór badania" />
+        <ComboBox
+            Grid.Row="3"
+            Grid.Column="1"
+            ctrl:TextBoxHelper.Watermark="Wybierz typ badania.."
+            ItemsSource="{Binding TypyBadan}"
+            SelectedItem="{Binding WybranyTypBadania}" />
+
+        <Grid Grid.Row="4" Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -94,18 +111,14 @@
         </Grid>
 
         <StackPanel
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.ColumnSpan="3"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Button
-                Command="{Binding ZapiszCommand}"
+                Command="{Binding ZaplanujBadanieCommand}"
                 CommandParameter="{Binding ElementName=kalendarzBadan}"
-                Content="Zapisz" />
-            <Button
-                Command="{Binding WyslijCommand}"
-                CommandParameter="{Binding ElementName=kalendarzBadan}"
-                Content="Wyślij" />
+                Content="Zaplanuj badanie" />
             <Button
                 Command="{Binding WrocCommand}"
                 CommandParameter="{Binding ElementName=kalendarzBadan}"

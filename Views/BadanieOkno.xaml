@@ -58,22 +58,26 @@
         <DatePicker
             Grid.Row="1"
             Grid.Column="1"
-            IsEnabled="{Binding CzyEdytowac}"
+            IsEnabled="False"
             SelectedDate="{Binding WybraneBadanie.DataBadania}" />
 
-        <TextBlock Grid.Row="2" Text="Nazwa Badania" />
-        <TextBox
+        <TextBlock Grid.Row="2" Text="Typ Badania" />
+        <ComboBox
             Grid.Row="2"
             Grid.Column="2"
-            IsReadOnly="{Binding CzyKontrolkiTylkoDoOdczytu}"
-            Text="{Binding WybraneBadanie.NazwaBadania, UpdateSourceTrigger=PropertyChanged}" />
+            ctrl:TextBoxHelper.Watermark="Wybierz typ badania.."
+            IsEnabled="{Binding CzyEdytowac}"
+            ItemsSource="{Binding TypyBadan}"
+            SelectedItem="{Binding WybraneBadanie.TypBadania, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Grid.Row="3" Text="Nazwa Kliniki" />
-        <TextBox
+        <ComboBox
             Grid.Row="3"
             Grid.Column="2"
-            IsReadOnly="{Binding CzyKontrolkiTylkoDoOdczytu}"
-            Text="{Binding WybraneBadanie.NazwaKliniki, UpdateSourceTrigger=PropertyChanged}" />
+            ctrl:TextBoxHelper.Watermark="Wybierz klinikę.."
+            IsEnabled="{Binding CzyEdytowac}"
+            ItemsSource="{Binding Kliniki}"
+            SelectedItem="{Binding WybraneBadanie.NazwaKliniki, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock
             Grid.Row="4"

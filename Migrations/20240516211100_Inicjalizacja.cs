@@ -16,7 +16,7 @@ namespace BadanieKrwi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NazwaBadania = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypBadania = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataBadania = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NazwaKliniki = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StezenieErytrocytowRbc = table.Column<int>(type: "int", nullable: false),
@@ -44,6 +44,23 @@ namespace BadanieKrwi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Kalendarz",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdUzytkownika = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DataBadania = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IdKliniki = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TypBadania = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Tresc = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CzyUstawionoPrzypomnienie = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Kalendarz", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Kliniki",
                 columns: table => new
                 {
@@ -63,8 +80,7 @@ namespace BadanieKrwi.Migrations
                 name: "Uzytkownik",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Imie = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nazwisko = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -85,6 +101,9 @@ namespace BadanieKrwi.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Badania");
+
+            migrationBuilder.DropTable(
+                name: "Kalendarz");
 
             migrationBuilder.DropTable(
                 name: "Kliniki");

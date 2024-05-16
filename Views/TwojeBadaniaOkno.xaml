@@ -43,8 +43,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="300"
-                    Binding="{Binding NazwaBadania}"
-                    Header="Nazwa" />
+                    Binding="{Binding TypBadania}"
+                    Header="Typ" />
                 <DataGridTextColumn
                     Width="200"
                     Binding="{Binding DataBadania, StringFormat='dd.MM.yyyy HH:mm'}"

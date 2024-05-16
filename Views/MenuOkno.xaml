@@ -4,12 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctrl="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:BadanieKrwi.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
     Title="Badanie Krwi"
-    Width="344"
-    Height="239"
+    Width="500"
+    Height="400"
+    dialog:DialogParticipation.Register="{Binding}"
     Icon="/Files/Images/BadanieKrwi-Ikona.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
@@ -17,6 +20,11 @@
     <ctrl:MetroWindow.DataContext>
         <vm:MenuViewModel />
     </ctrl:MetroWindow.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Image
             HorizontalAlignment="Center"

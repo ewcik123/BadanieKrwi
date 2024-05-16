@@ -22,15 +22,15 @@ namespace BadanieKrwi.Models
             }
         }
 
-        private string _nazwaBadania;
-        public string NazwaBadania
+        private string _typBadania;
+        public string TypBadania
         {
-            get => _nazwaBadania;
+            get => _typBadania;
             set
             {
-                if (_nazwaBadania != value)
+                if (_typBadania != value)
                 {
-                    _nazwaBadania = value;
+                    _typBadania = value;
                     CzyZmodyfikowano = true;
                     OnPropertyChanged();
                 }
@@ -356,7 +356,7 @@ namespace BadanieKrwi.Models
         private void DomyslneWartosci()
         {
             DataBadania = DateTime.Now;
-            NazwaBadania = null;
+            TypBadania = null;
             NazwaKliniki = null;
             StezenieErytrocytowRbc = 1;
             HemoglobinaHb = 1;
@@ -385,7 +385,7 @@ namespace BadanieKrwi.Models
 
             DataBadania = badanie.DataBadania;
             Id = badanie.Id;
-            NazwaBadania = badanie.NazwaBadania;
+            TypBadania = badanie.TypBadania;
             DataBadania = badanie.DataBadania;
             NazwaKliniki = badanie.NazwaKliniki;
             StezenieErytrocytowRbc = badanie.StezenieErytrocytowRbc;

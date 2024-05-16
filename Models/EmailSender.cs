@@ -10,7 +10,7 @@ namespace BadanieKrwi.Models
         private readonly string _senderEmail = senderEmail;
         private readonly string _senderPassword = senderPassword;
 
-        public void SendEmail(string recipientEmail, string subject, string body)
+        public async void SendEmail(string recipientEmail, string subject, string body)
         {
             using SmtpClient client = new(_smtpServer, _smtpPort);
             client.UseDefaultCredentials = false;
@@ -21,7 +21,8 @@ namespace BadanieKrwi.Models
             {
                 IsBodyHtml = true
             };
-            client.Send(msg);
+
+            await client.SendMailAsync(msg);
         }
     }
 }
