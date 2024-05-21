@@ -23,7 +23,7 @@ namespace BadanieKrwi.Models
             _defaultFontBolt = new(_baseFont, 12f, Font.BOLD);
         }
 
-        public bool Generuj(string filePath, BadanieModel badanie)
+        public bool Generuj(string filePath, BadanieModel badanie, bool dodajZnakWodny = true)
         {
             Document doc = new();
             try
@@ -72,6 +72,14 @@ namespace BadanieKrwi.Models
                 };
 
                 doc.Add(TabelaKluczWartosc(morfologiaKrwi));
+
+                // Dodanie znaku wodnego
+                if (dodajZnakWodny)
+                {
+                    string watermarkImagePath = GetWatermarkFilePath();
+                    AddWatermark(doc, writer, watermarkImagePath);
+                }
+
                 return true;
             }
             catch (Exception ex)
@@ -82,6 +90,23 @@ namespace BadanieKrwi.Models
             {
                 doc.Close();
             }
+        }
+
+        private static string GetWatermarkFilePath()
+        {
+            // Dodaj znak wodny
+            // Uzyskaj ścieżkę do katalogu bieżącego
+            string currentDirectory = Directory.GetCurrentDirectory();
+
+            // Przejdź do katalogu projektu (cofnij się o tyle razy, ile to konieczne)
+            while (!Directory.Exists(Path.Combine(currentDirectory, "Files", "Images")))
+            {
+                currentDirectory = Directory.GetParent(currentDirectory).FullName;
+            }
+
+            // Utwórz pełną ścieżkę do pliku obrazu
+            string watermarkImagePath = Path.Combine(currentDirectory, "Files", "Images", "BadanieKrwi-LogoTlo.png");
+            return watermarkImagePath;
         }
 
         private Chunk TekstPogrubiony(string tekst)
@@ -137,6 +162,35 @@ namespace BadanieKrwi.Models
             }
 
             return table;
+        }
+
+        private void AddWatermark(Document doc, PdfWriter writer, string watermarkImagePath)
+        {
+            // Ładuj obraz znaku wodnego
+            Image watermarkImage = Image.GetInstance(watermarkImagePath);
+            watermarkImage.ScaleToFit(300, 300);
+
+            // Ustaw przezroczystość
+            PdfGState gState = new PdfGState { FillOpacity = 0.3f };
+
+            // Pobierz liczbe stron
+            int pageCount = 1;// doc.PageNumber;
+
+            for (int i = 1; i <= pageCount; i++)
+            {
+                PdfContentByte content = writer.DirectContentUnder;
+                content.SaveState();
+                content.SetGState(gState);
+
+                // Oblicz środek strony
+                Rectangle pageSize = doc.PageSize;
+                float x = (pageSize.Left + pageSize.Right) / 2;
+                float y = (pageSize.Top + pageSize.Bottom) / 2;
+
+                watermarkImage.SetAbsolutePosition(x - (watermarkImage.ScaledWidth / 2), y - (watermarkImage.ScaledHeight / 2));
+                content.AddImage(watermarkImage);
+                content.RestoreState();
+            }
         }
 
         private Paragraph Naglowek(string tekst, int alignment = Element.ALIGN_CENTER)
