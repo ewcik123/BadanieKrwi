@@ -14,6 +14,20 @@ namespace BadanieKrwi.ViewModels
 
         public BadanieModel OryginalneBadanie { get; set; }
 
+        private bool _czyGenerowacPdf;
+        public bool CzyGenerowacPdf
+        {
+            get => _czyGenerowacPdf;
+            set
+            {
+                if (_czyGenerowacPdf != value)
+                {
+                    _czyGenerowacPdf = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private bool _czyEdytowac;
         public bool CzyEdytowac
         {
@@ -24,6 +38,7 @@ namespace BadanieKrwi.ViewModels
                 {
                     _czyEdytowac = value;
                     CzyKontrolkiTylkoDoOdczytu = !value;
+                    CzyGenerowacPdf = !value;
                     OnPropertyChanged();
 
                     AktualizacjaNaglowkaIPrzyciskuZapisuEdycji();

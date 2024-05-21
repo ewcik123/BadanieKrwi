@@ -61,14 +61,19 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Button
-                Command="{Binding SzczegolyCommand}"
+                Command="{Binding GenerujPdfPrzycisk.Command}"
                 CommandParameter="{Binding ElementName=twojeBadania}"
-                Content="Szczegóły" />
+                Content="{Binding GenerujPdfPrzycisk.Content}" />
 
             <Button
-                Command="{Binding WrocCommand}"
+                Command="{Binding SzczegolyPrzycisk.Command}"
                 CommandParameter="{Binding ElementName=twojeBadania}"
-                Content="Wróć" />
+                Content="{Binding SzczegolyPrzycisk.Content}" />
+
+            <Button
+                Command="{Binding WrocPrzycisk.Command}"
+                CommandParameter="{Binding ElementName=twojeBadania}"
+                Content="{Binding WrocPrzycisk.Content}" />
         </StackPanel>
     </Grid>
 </ctrl:MetroWindow>

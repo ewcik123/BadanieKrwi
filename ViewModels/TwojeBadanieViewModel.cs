@@ -1,6 +1,7 @@
 ﻿using BadanieKrwi.Models;
 using BadanieKrwi.Models.Database;
 using BadanieKrwi.Views;
+using MahApps.Metro.Controls.Dialogs;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -9,6 +10,8 @@ namespace BadanieKrwi.ViewModels
     public class TwojeBadanieViewModel : KlasaBazowa
     {
         #region Properties
+        public IDialogCoordinator DialogCoordinator { get; set; }
+
         private ObservableCollection<BadanieModel> _badania;
         public ObservableCollection<BadanieModel> Badania
         {
@@ -37,7 +40,12 @@ namespace BadanieKrwi.ViewModels
             }
         }
 
+        public ButtonModel GenerujPdfPrzycisk { get; set; }
+        public ButtonModel SzczegolyPrzycisk { get; set; }
+        public ButtonModel WrocPrzycisk { get; set; }
+
         #region Commands
+        public ICommand GenerujPdfCommand { get; set; }
         public ICommand SzczegolyCommand { get; set; }
         public ICommand WrocCommand { get; set; }
 
@@ -59,10 +67,15 @@ namespace BadanieKrwi.ViewModels
         private void Inicjalizacja()
         {
             InicjalizacjaKomend();
+
+            GenerujPdfPrzycisk = new ButtonModel("Generuj Pdf", GenerujPdfCommand, null);
+            SzczegolyPrzycisk = new ButtonModel("Szczegóły", SzczegolyCommand, null);
+            WrocPrzycisk = new ButtonModel("Wróć", WrocCommand, null);
         }
 
         private void InicjalizacjaKomend()
         {
+            GenerujPdfCommand = new RelayCommand(ExecGenerujPdf, x => WybraneBadanie != null);
             SzczegolyCommand = new RelayCommand(ExecSzczegolyCommand, x => WybraneBadanie != null);
             WrocCommand = new RelayCommand(ExecWrocCommand);
         }
@@ -73,6 +86,26 @@ namespace BadanieKrwi.ViewModels
         }
 
         #endregion Main
+
+        private async void ExecGenerujPdf(object obj)
+        {
+            Microsoft.Win32.SaveFileDialog dialog = new()
+            { Filter = "Badanie (*.pdf)|*.pdf" };
+
+            try
+            {
+                dialog.FileName = $"Badanie krwi - {WybraneBadanie.TypBadania}";
+                if (dialog.ShowDialog().Value)
+                {
+                    if (MenadzerPdf.Instance.Generuj(dialog.FileName, WybraneBadanie))
+                        await ShowMessageAsync("Raport wygenerowano pomyślnie", "Generowanie Pdf", this, DialogCoordinator);
+                }
+            }
+            catch (Exception ex)
+            {
+                await ShowMessageAsync(ex.Message, "Generowanie Pdf", this, DialogCoordinator);
+            }
+        }
 
         private void ExecWrocCommand(object obj)
         {
