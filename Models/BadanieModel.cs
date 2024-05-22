@@ -22,6 +22,20 @@ namespace BadanieKrwi.Models
             }
         }
 
+        private Guid _idUzytkownika;
+        public Guid IdUzytkownika
+        {
+            get => _idUzytkownika;
+            set
+            {
+                if (_idUzytkownika != value)
+                {
+                    _idUzytkownika = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string _typBadania;
         public string TypBadania
         {
@@ -385,6 +399,7 @@ namespace BadanieKrwi.Models
 
             DataBadania = badanie.DataBadania;
             Id = badanie.Id;
+            IdUzytkownika = badanie.IdUzytkownika;
             TypBadania = badanie.TypBadania;
             DataBadania = badanie.DataBadania;
             NazwaKliniki = badanie.NazwaKliniki;
@@ -407,7 +422,6 @@ namespace BadanieKrwi.Models
             Zelazo = badanie.Zelazo;
             Magnez = badanie.Magnez;
         }
-
 
         #endregion Methods
     }

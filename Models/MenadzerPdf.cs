@@ -76,8 +76,8 @@ namespace BadanieKrwi.Models
                 // Dodanie znaku wodnego
                 if (dodajZnakWodny)
                 {
-                    string watermarkImagePath = GetWatermarkFilePath();
-                    AddWatermark(doc, writer, watermarkImagePath);
+                    string sciezkaDoObrazka = GetSciezkeDoPlikuZeZnakiemWodnym();
+                    AddWatermark(doc, writer, sciezkaDoObrazka);
                 }
 
                 return true;
@@ -92,21 +92,21 @@ namespace BadanieKrwi.Models
             }
         }
 
-        private static string GetWatermarkFilePath()
+        private static string GetSciezkeDoPlikuZeZnakiemWodnym()
         {
             // Dodaj znak wodny
             // Uzyskaj ścieżkę do katalogu bieżącego
-            string currentDirectory = Directory.GetCurrentDirectory();
+            string obecnyFolder = Directory.GetCurrentDirectory();
 
             // Przejdź do katalogu projektu (cofnij się o tyle razy, ile to konieczne)
-            while (!Directory.Exists(Path.Combine(currentDirectory, "Files", "Images")))
+            while (!Directory.Exists(Path.Combine(obecnyFolder, "Files", "Images")))
             {
-                currentDirectory = Directory.GetParent(currentDirectory).FullName;
+                obecnyFolder = Directory.GetParent(obecnyFolder).FullName;
             }
 
             // Utwórz pełną ścieżkę do pliku obrazu
-            string watermarkImagePath = Path.Combine(currentDirectory, "Files", "Images", "BadanieKrwi-LogoTlo.png");
-            return watermarkImagePath;
+            string sciezkaDoObrazka = Path.Combine(obecnyFolder, "Files", "Images", "BadanieKrwi-LogoTlo.png");
+            return sciezkaDoObrazka;
         }
 
         private Chunk TekstPogrubiony(string tekst)
@@ -164,32 +164,32 @@ namespace BadanieKrwi.Models
             return table;
         }
 
-        private void AddWatermark(Document doc, PdfWriter writer, string watermarkImagePath)
+        private void AddWatermark(Document doc, PdfWriter writer, string sciezkaDoObrazka)
         {
             // Ładuj obraz znaku wodnego
-            Image watermarkImage = Image.GetInstance(watermarkImagePath);
-            watermarkImage.ScaleToFit(300, 300);
+            Image znakWodnyImage = Image.GetInstance(sciezkaDoObrazka);
+            znakWodnyImage.ScaleToFit(300, 300);
 
             // Ustaw przezroczystość
             PdfGState gState = new PdfGState { FillOpacity = 0.3f };
 
             // Pobierz liczbe stron
-            int pageCount = 1;// doc.PageNumber;
+            int liczbaStron = 1;// doc.PageNumber;
 
-            for (int i = 1; i <= pageCount; i++)
+            for (int i = 1; i <= liczbaStron; i++)
             {
-                PdfContentByte content = writer.DirectContentUnder;
-                content.SaveState();
-                content.SetGState(gState);
+                PdfContentByte zawartosc = writer.DirectContentUnder;
+                zawartosc.SaveState();
+                zawartosc.SetGState(gState);
 
                 // Oblicz środek strony
-                Rectangle pageSize = doc.PageSize;
-                float x = (pageSize.Left + pageSize.Right) / 2;
-                float y = (pageSize.Top + pageSize.Bottom) / 2;
+                Rectangle rozmiarStrony = doc.PageSize;
+                float x = (rozmiarStrony.Left + rozmiarStrony.Right) / 2;
+                float y = (rozmiarStrony.Top + rozmiarStrony.Bottom) / 2;
 
-                watermarkImage.SetAbsolutePosition(x - (watermarkImage.ScaledWidth / 2), y - (watermarkImage.ScaledHeight / 2));
-                content.AddImage(watermarkImage);
-                content.RestoreState();
+                znakWodnyImage.SetAbsolutePosition(x - (znakWodnyImage.ScaledWidth / 2), y - (znakWodnyImage.ScaledHeight / 2));
+                zawartosc.AddImage(znakWodnyImage);
+                zawartosc.RestoreState();
             }
         }
 

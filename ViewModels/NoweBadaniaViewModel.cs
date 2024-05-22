@@ -106,6 +106,7 @@ namespace BadanieKrwi.ViewModels
             NoweBadanie = new BadanieModel();
             TypyBadania = Globals.TypyBadan;
             NoweBadanie.TypBadania  = TypyBadania.FirstOrDefault();
+            NoweBadanie.IdUzytkownika = Globals.ZalogowanyUzytkownik.Id;
 
             using AppDbContext cont = new();
             Kliniki = [.. cont.Kliniki.Select(x => x.Nazwa)];

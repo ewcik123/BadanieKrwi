@@ -82,7 +82,7 @@ namespace BadanieKrwi.ViewModels
         private void WczytajBadania()
         {
             using AppDbContext cont = new();
-            Badania = new ObservableCollection<BadanieModel>([.. cont.Badania]);
+            Badania = new ObservableCollection<BadanieModel>([.. cont.Badania.Where(x => x.IdUzytkownika == Globals.ZalogowanyUzytkownik.Id)]);
         }
 
         #endregion Main
