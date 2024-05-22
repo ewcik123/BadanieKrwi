@@ -260,7 +260,6 @@
                 CommandParameter="{Binding ElementName=noweBadanie}"
                 Content="Zapisz" />
             <Button
-                Background="LightSkyBlue"
                 Command="{Binding WrocCommand}"
                 CommandParameter="{Binding ElementName=noweBadanie}"
                 Content="Wróć" />

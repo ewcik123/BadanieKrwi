@@ -10,8 +10,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
     Title="Badanie Krwi"
-    Width="500"
-    Height="400"
+    Width="800"
+    Height="600"
     dialog:DialogParticipation.Register="{Binding}"
     Icon="/Files/Images/BadanieKrwi-Ikona.ico"
     ResizeMode="NoResize"
@@ -44,28 +44,45 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Button Command="{Binding NoweBadanieCommand}" Content="Nowe Badanie" />
+            <Button
+                Width="150"
+                Height="70"
+                Command="{Binding NoweBadanieCommand}"
+                Content="Nowe Badanie"
+                FontSize="14" />
             <Button
                 Grid.Column="1"
+                Width="150"
+                Height="70"
                 Command="{Binding TwojeBadaniaCommand}"
-                Content="Twoje Badania" />
+                Content="Twoje Badania"
+                FontSize="14" />
 
             <Button
                 Grid.Row="1"
+                Width="150"
+                Height="70"
                 Command="{Binding KalendarzBadanCommand}"
-                Content="Kalendarz Badań" />
+                Content="Kalendarz Badań"
+                FontSize="14" />
             <Button
                 Grid.Row="1"
                 Grid.Column="1"
+                Width="150"
+                Height="70"
                 Command="{Binding KlinikiCommand}"
-                Content="Kliniki" />
+                Content="Kliniki"
+                FontSize="14" />
 
             <Button
                 Grid.Row="2"
                 Grid.ColumnSpan="2"
+                Width="150"
+                Height="70"
                 HorizontalAlignment="Center"
                 Command="{Binding StatystykiCommand}"
-                Content="Statystyki" />
+                Content="Statystyki"
+                FontSize="14" />
             <!--<Button
                 Grid.Row="2"
                 Grid.Column="1"
