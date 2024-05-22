@@ -321,7 +321,6 @@ namespace BadanieKrwi.Models
             }
         }
 
-
         private double _zelazo;
         public double Zelazo
         {

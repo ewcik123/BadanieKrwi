@@ -46,9 +46,12 @@
             https://v0.lvcharts.com/App/examples/v1/Wpf/Line
         -->
 
-        <lvc:CartesianChart Grid.Row="1" Series="{Binding SerieNaWykresie}">
+        <lvc:CartesianChart
+            Grid.Row="1"
+            LegendLocation="Left"
+            Series="{Binding SerieNaWykresie}">
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Labels="{Binding EtykietyX}" />
+                <lvc:Axis Title="Ilość badań"  Foreground="Black" FontSize="16" Labels="{Binding EtykietyX}" />
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
