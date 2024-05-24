@@ -1,7 +1,10 @@
 ﻿using BadanieKrwi.Models;
+using BadanieKrwi.Models.Database;
 using BadanieKrwi.Views;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Input;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace BadanieKrwi.ViewModels
 {
@@ -28,6 +31,7 @@ namespace BadanieKrwi.ViewModels
         public StatystykiViewModel()
         {
             Inicjalizacja();
+            PoliczBadania();
         }
         #endregion Constructors
 
@@ -37,6 +41,8 @@ namespace BadanieKrwi.ViewModels
         {
             InicjalizacjaKomend();
             InicjalizacjaPrzyciskowStezeniaSubstancji();
+            PoliczBadania();
+            
         }
 
         private void InicjalizacjaPrzyciskowStezeniaSubstancji()
@@ -88,7 +94,33 @@ namespace BadanieKrwi.ViewModels
                 }
             }
         }
+        private void PoliczBadania()
+        {
+            using AppDbContext cont = new ();
+            int iloscBadan =  cont.Badania.Where(x => x.IdUzytkownika.Equals(Globals.ZalogowanyUzytkownik.Id)).Count();
+            TwojaIloscBadan = iloscBadan.ToString();
 
+            var currentYear = DateTime.Now.Year;
+            int iloscBadanRok = cont.Badania.Where(b => b.IdUzytkownika == Globals.ZalogowanyUzytkownik.Id && b.DataBadania.Year == currentYear).Count();
+            BadanieWTymRoku = iloscBadanRok.ToString();
+
+            var badania = cont.Badania
+                      .Where(b => b.IdUzytkownika == Globals.ZalogowanyUzytkownik.Id)
+                      .OrderBy(b => b.DataBadania)
+                      .ToList();
+
+            if (badania.Count < 2)
+            {
+                SredniCzas = "Brak wystarczającej liczby badań";
+            }
+            else
+            {
+                var totalDays = badania.Zip(badania.Skip(1), (first, second) => (second.DataBadania - first.DataBadania).TotalDays).Sum();
+                var averageDays = totalDays / (badania.Count - 1);
+                SredniCzas = TimeSpan.FromDays(averageDays).ToString(@"dd");
+            }
+        }
+       
         private void ExecWroc(object obj)
         {
             if (obj is StatystykiOkno so)
