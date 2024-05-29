@@ -103,10 +103,10 @@ namespace BadanieKrwi.ViewModels
         #region Main
         private void Inicializacja()
         {
-            NoweBadanie = new BadanieModel();
-            TypyBadania = Globals.TypyBadan;
-            NoweBadanie.TypBadania  = TypyBadania.FirstOrDefault();
-            NoweBadanie.IdUzytkownika = Globals.ZalogowanyUzytkownik.Id;
+            NoweBadanie = new()
+            {
+                IdUzytkownika = Globals.ZalogowanyUzytkownik.Id
+            };
 
             using AppDbContext cont = new();
             Kliniki = [.. cont.Kliniki.Select(x => x.Nazwa)];

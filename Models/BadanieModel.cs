@@ -357,6 +357,7 @@ namespace BadanieKrwi.Models
         {
             DomyslneWartosci();
             CzyZmodyfikowano = false;
+            TypBadania = Globals.TypBadania;
         }
 
         public BadanieModel(BadanieModel badanie)
@@ -369,7 +370,7 @@ namespace BadanieKrwi.Models
         private void DomyslneWartosci()
         {
             DataBadania = DateTime.Now;
-            TypBadania = null;
+            TypBadania = Globals.TypBadania;
             NazwaKliniki = null;
             StezenieErytrocytowRbc = 1;
             HemoglobinaHb = 1;

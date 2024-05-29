@@ -102,20 +102,6 @@ namespace BadanieKrwi.ViewModels
             }
         }
 
-        private ObservableCollection<string> _typyBadan;
-        public ObservableCollection<string> TypyBadan
-        {
-            get => _typyBadan;
-            set
-            {
-                if(_typyBadan != value)
-                {
-                    _typyBadan = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         private ObservableCollection<string> _kliniki;
         public ObservableCollection<string> Kliniki
         {
@@ -178,7 +164,6 @@ namespace BadanieKrwi.ViewModels
             ZapiszZmianyPrzycisk = new ButtonModel("Zapisz", ZapiszZmianyCommand, "Zapisz");
             PrzerwijEdycjePrzycisk = new ButtonModel("Przerwij", PrzerwijEdycjeCommand, null);
             WrocPrzycisk = new ButtonModel("Wróć", WrocCommand, null);
-            TypyBadan = new ObservableCollection<string>(Globals.TypyBadan);
             AktualizacjaNaglowkaIPrzyciskuZapisuEdycji();
             InicjalizacjaKlinik();
         }

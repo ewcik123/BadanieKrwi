@@ -31,7 +31,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -83,15 +82,7 @@
                 SelectedItem="{Binding WybranaKlinika}" />
         </Grid>
 
-        <TextBlock Grid.Row="3" Text="Wybór badania" />
-        <ComboBox
-            Grid.Row="3"
-            Grid.Column="1"
-            ctrl:TextBoxHelper.Watermark="Wybierz typ badania.."
-            ItemsSource="{Binding TypyBadan}"
-            SelectedItem="{Binding WybranyTypBadania}" />
-
-        <Grid Grid.Row="4" Grid.ColumnSpan="3">
+        <Grid Grid.Row="3" Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -111,7 +102,7 @@
         </Grid>
 
         <StackPanel
-            Grid.Row="5"
+            Grid.Row="4"
             Grid.ColumnSpan="3"
             HorizontalAlignment="Center"
             Orientation="Horizontal">

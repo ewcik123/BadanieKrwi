@@ -47,7 +47,7 @@ namespace BadanieKrwi.Models
                 doc.Add(Separator());
 
                 // Morfologia krwi
-                doc.Add(Naglowek2("Morfologia krwi", Element.ALIGN_LEFT));
+                doc.Add(Naglowek2(Globals.TypBadania, Element.ALIGN_LEFT));
                 doc.Add(Separator());
                 var morfologiaKrwi = new Dictionary<string, string>()
                 {

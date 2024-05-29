@@ -37,7 +37,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -67,19 +66,9 @@
             ctrl:TextBoxHelper.Watermark="Wybierz datę badania.."
             SelectedDate="{Binding NoweBadanie.DataBadania}" />
 
-        <TextBlock Grid.Row="2" Text="Typ Badania" />
+        <TextBlock Grid.Row="2" Text="Nazwa Kliniki" />
         <ComboBox
             Grid.Row="2"
-            Grid.Column="2"
-            ctrl:TextBoxHelper.ClearTextButton="True"
-            ctrl:TextBoxHelper.SelectAllOnFocus="True"
-            ctrl:TextBoxHelper.Watermark="Wybierz typ badania.."
-            ItemsSource="{Binding TypyBadania}"
-            Text="{Binding NoweBadanie.TypBadania, UpdateSourceTrigger=PropertyChanged}" />
-
-        <TextBlock Grid.Row="3" Text="Nazwa Kliniki" />
-        <ComboBox
-            Grid.Row="3"
             Grid.Column="2"
             ctrl:TextBoxHelper.ClearTextButton="True"
             ctrl:TextBoxHelper.SelectAllOnFocus="True"
@@ -88,13 +77,13 @@
             SelectedItem="{Binding NoweBadanie.NazwaKliniki, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock
-            Grid.Row="4"
+            Grid.Row="3"
             Grid.ColumnSpan="2"
             Style="{StaticResource topTextBlock20}"
             Text="Morfologia Krwi" />
 
         <ScrollViewer
-            Grid.Row="5"
+            Grid.Row="4"
             Grid.ColumnSpan="2"
             VerticalScrollBarVisibility="Auto">
             <Grid>
@@ -250,7 +239,7 @@
         </ScrollViewer>
 
         <StackPanel
-            Grid.Row="6"
+            Grid.Row="5"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Center"
             Orientation="Horizontal">

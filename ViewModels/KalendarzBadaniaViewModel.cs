@@ -16,14 +16,10 @@ namespace BadanieKrwi.ViewModels
         public Klinika WybranaKlinika { get; set; }
         public string Tresc { get; set; }
 
-        public List<String> TypyBadan { get; set; }
-        public string WybranyTypBadania { get; set; }
-
         public bool czyMoznaKliknac
         {
             get => Kliniki?.Count > 0
-                && WybranaKlinika != null
-                && !string.IsNullOrWhiteSpace(WybranyTypBadania);
+                && WybranaKlinika != null;
         }
         #endregion Properties
 
@@ -49,7 +45,6 @@ namespace BadanieKrwi.ViewModels
             DataBadania = new DateModel();
 
             InicjalizacjaKlinik();
-            InicjalizacjaTypyBadan();
             InicjalizacjaKomend();
         }
 
@@ -58,12 +53,6 @@ namespace BadanieKrwi.ViewModels
             using AppDbContext cont = new();
             Kliniki = new List<Klinika>([.. cont.Kliniki]);
             WybranaKlinika = Kliniki[0];
-        }
-
-        private void InicjalizacjaTypyBadan()
-        {
-            TypyBadan = Globals.TypyBadan;
-            WybranyTypBadania = TypyBadan.FirstOrDefault();
         }
 
         private void InicjalizacjaKomend()
@@ -103,7 +92,7 @@ namespace BadanieKrwi.ViewModels
         {
             if (obj is KalendarzBadanOkno kb)
             {
-                KalendarzBadanModel wpis = new(Globals.ZalogowanyUzytkownik.Id, WybranaKlinika.Id, WybranyTypBadania, DataBadania.GotowaData, Tresc);
+                KalendarzBadanModel wpis = new(Globals.ZalogowanyUzytkownik.Id, WybranaKlinika.Id, Globals.TypBadania, DataBadania.GotowaData, Tresc);
                 var result = await DialogCoordinator.ShowMessageAsync(this, "Planowanie badania", "Badanie zaplanowane. Czy ustawić przypomnienie na dzień przed badaniem?",
                     MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary, new MetroDialogSettings()
                     {
