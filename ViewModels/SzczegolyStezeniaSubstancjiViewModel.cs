@@ -57,6 +57,8 @@ namespace BadanieKrwi.ViewModels
                 }
             }
         }
+        
+        public Func<double, string> YFormatter { get; set; }
         #endregion Properties
 
         #region Commands
@@ -74,13 +76,13 @@ namespace BadanieKrwi.ViewModels
         #region Main
         private void Inicjalizacja()
         {
-            InicjalizacjaWykres(null);
+            InicjalizacjaWykres(null, null);
             InicjalizacjaKomend();
             _badania = [];
         }
-        public void InicjalizacjaWykres(string nazwaStezeniaSubstancji)
+        public void InicjalizacjaWykres(string nazwaStezeniaSubstancji, string jednostka)
         {
-            if (string.IsNullOrWhiteSpace(nazwaStezeniaSubstancji))
+            if (string.IsNullOrWhiteSpace(nazwaStezeniaSubstancji) || string.IsNullOrWhiteSpace(jednostka))
             {
                 Naglowek = "Jakaś tam nazwa stężenia substancji";
                 SerieNaWykresie =
@@ -93,6 +95,7 @@ namespace BadanieKrwi.ViewModels
                 ];
 
                 EtykietyX = ["2", "4", "6", "7", "10", "18", "20", "21", "30"];
+                //YFormatter = value => value.ToString();
                 return;
             }
 
@@ -101,6 +104,8 @@ namespace BadanieKrwi.ViewModels
                 return;
 
             EtykietyX.Clear();
+            YFormatter = value => $"{value:0.##} {jednostka}";
+
             Naglowek = nazwaStezeniaSubstancji;
 
             int count = 1;

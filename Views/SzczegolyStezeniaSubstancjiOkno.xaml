@@ -50,8 +50,15 @@
             Grid.Row="1"
             LegendLocation="Left"
             Series="{Binding SerieNaWykresie}">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis LabelFormatter="{Binding YFormatter}" />
+            </lvc:CartesianChart.AxisY>
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Ilość badań"  Foreground="Black" FontSize="16" Labels="{Binding EtykietyX}" />
+                <lvc:Axis
+                    Title="Ilość badań"
+                    FontSize="16"
+                    Foreground="Black"
+                    Labels="{Binding EtykietyX}" />
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 

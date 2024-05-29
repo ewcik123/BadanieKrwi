@@ -3,8 +3,6 @@ using BadanieKrwi.Models.Database;
 using BadanieKrwi.Views;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Input;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace BadanieKrwi.ViewModels
 {
@@ -49,24 +47,24 @@ namespace BadanieKrwi.ViewModels
         {
             PrzyciskiStezeniaSubstrancji =
             [
-                new ButtonModel("Stężenie Erytrocytów RBC", PrzyciskiStezeniaSubstrancjiCommand, "Stężenie Erytrocytów RBC"),
-                new ButtonModel("Hemoglobina Hb", PrzyciskiStezeniaSubstrancjiCommand, "Hemoglobina Hb"),
-                new ButtonModel("Hematokryt Htc", PrzyciskiStezeniaSubstrancjiCommand, "Hematokryt Htc"),
-                new ButtonModel("Średnia objętość erytrocytu MCV", PrzyciskiStezeniaSubstrancjiCommand, "Średnia objętość erytrocytu MCV"),
-                new ButtonModel("Średnia masa hemoglobiny w erytrocycie MCH", PrzyciskiStezeniaSubstrancjiCommand, "Średnia masa hemoglobiny w erytrocycie MCH"),
-                new ButtonModel("Średnie stężenie hemoglobiny w erytrocytach MCHC", PrzyciskiStezeniaSubstrancjiCommand, "Średnie stężenie hemoglobiny w erytrocytach MCHC"),
-                new ButtonModel("Rozpiętość rozkładu objętości erytrocytów RDW-CV", PrzyciskiStezeniaSubstrancjiCommand, "Rozpiętość rozkładu objętości erytrocytów RDW-CV"),
-                new ButtonModel("Retikulocyty RC", PrzyciskiStezeniaSubstrancjiCommand, "Retikulocyty RC"),
-                new ButtonModel("Stężenie leukocytów WBC", PrzyciskiStezeniaSubstrancjiCommand, "Stężenie leukocytów WBC"),
-                new ButtonModel("Neutrofile", PrzyciskiStezeniaSubstrancjiCommand, "Neutrofile"),
-                new ButtonModel("Bazofile", PrzyciskiStezeniaSubstrancjiCommand, "Bazofile"),
-                new ButtonModel("Eozynofile", PrzyciskiStezeniaSubstrancjiCommand, "Eozynofile"),
-                new ButtonModel("Limfocyty", PrzyciskiStezeniaSubstrancjiCommand, "Limfocyty"),
-                new ButtonModel("Monocyty", PrzyciskiStezeniaSubstrancjiCommand, "Monocyty"),
-                new ButtonModel("Płytki krwi PLT", PrzyciskiStezeniaSubstrancjiCommand, "Płytki krwi PLT"),
-                new ButtonModel("Średnia objętość krwi MPV", PrzyciskiStezeniaSubstrancjiCommand, "Średnia objętość krwi MPV"),
-                new ButtonModel("Żelazo", PrzyciskiStezeniaSubstrancjiCommand, "Żelazo"),
-                new ButtonModel("Magnez", PrzyciskiStezeniaSubstrancjiCommand, "Magnez"),
+                new ButtonModel("Stężenie Erytrocytów RBC", PrzyciskiStezeniaSubstrancjiCommand, "Stężenie Erytrocytów RBC||μl"),
+                new ButtonModel("Hemoglobina Hb", PrzyciskiStezeniaSubstrancjiCommand, "Hemoglobina Hb||g/dl"),
+                new ButtonModel("Hematokryt Htc", PrzyciskiStezeniaSubstrancjiCommand, "Hematokryt Htc||%"),
+                new ButtonModel("Średnia objętość erytrocytu MCV", PrzyciskiStezeniaSubstrancjiCommand, "Średnia objętość erytrocytu MCV||fl"),
+                new ButtonModel("Średnia masa hemoglobiny w erytrocycie MCH", PrzyciskiStezeniaSubstrancjiCommand, "Średnia masa hemoglobiny w erytrocycie MCH||pg"),
+                new ButtonModel("Średnie stężenie hemoglobiny w erytrocytach MCHC", PrzyciskiStezeniaSubstrancjiCommand, "Średnie stężenie hemoglobiny w erytrocytach MCHC||g/dl"),
+                new ButtonModel("Rozpiętość rozkładu objętości erytrocytów RDW-CV", PrzyciskiStezeniaSubstrancjiCommand, "Rozpiętość rozkładu objętości erytrocytów RDW-CV||%"),
+                new ButtonModel("Retikulocyty RC", PrzyciskiStezeniaSubstrancjiCommand, "Retikulocyty RC||%"),
+                new ButtonModel("Stężenie leukocytów WBC", PrzyciskiStezeniaSubstrancjiCommand, "Stężenie leukocytów WBC||liczba/μl"),
+                new ButtonModel("Neutrofile", PrzyciskiStezeniaSubstrancjiCommand, "Neutrofile||liczba/μl"),
+                new ButtonModel("Bazofile", PrzyciskiStezeniaSubstrancjiCommand, "Bazofile||liczba/μl"),
+                new ButtonModel("Eozynofile", PrzyciskiStezeniaSubstrancjiCommand, "Eozynofile||liczba/μl"),
+                new ButtonModel("Limfocyty", PrzyciskiStezeniaSubstrancjiCommand, "Limfocyty||liczba/μl"),
+                new ButtonModel("Monocyty", PrzyciskiStezeniaSubstrancjiCommand, "Monocyty||liczba/μl"),
+                new ButtonModel("Płytki krwi PLT", PrzyciskiStezeniaSubstrancjiCommand, "Płytki krwi PLT||liczba/μl"),
+                new ButtonModel("Średnia objętość krwi MPV", PrzyciskiStezeniaSubstrancjiCommand, "Średnia objętość krwi MPV||fl"),
+                new ButtonModel("Żelazo", PrzyciskiStezeniaSubstrancjiCommand, "Żelazo||μg/dl"),
+                new ButtonModel("Magnez", PrzyciskiStezeniaSubstrancjiCommand, "Magnez||mmol/l"),
                 //new ButtonModel("", PrzyciskiStezeniaSubstrancjiCommand, ""),
             ];
         }
@@ -80,12 +78,13 @@ namespace BadanieKrwi.ViewModels
         #endregion Main
         private async void ExecPrzyciskiStezeniaSubstrancji(object obj)
         {
-            if (obj is string nazwaStezeniaSubstancji)
+            if (obj is string nazwaStezeniaSubstancjiIJednostka)
             {
                 try
                 {
+                    string[] nazwaZJednostka = nazwaStezeniaSubstancjiIJednostka.Split("||");
                     SzczegolyStezeniaSubstancjiOkno sssOkno = new();
-                    (sssOkno.DataContext as SzczegolyStezeniaSubstancjiViewModel)!.InicjalizacjaWykres(nazwaStezeniaSubstancji);
+                    (sssOkno.DataContext as SzczegolyStezeniaSubstancjiViewModel)!.InicjalizacjaWykres(nazwaZJednostka[0], nazwaZJednostka[1]);
                     sssOkno.ShowDialog();
                 }
                 catch (Exception ex)
