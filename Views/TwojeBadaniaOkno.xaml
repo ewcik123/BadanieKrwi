@@ -47,7 +47,7 @@
                     Header="Typ" />
                 <DataGridTextColumn
                     Width="200"
-                    Binding="{Binding DataBadania, StringFormat='dd.MM.yyyy HH:mm'}"
+                    Binding="{Binding DataBadania, StringFormat='dd.MM.yyyy'}"
                     Header="Data Badania" />
                 <DataGridTextColumn
                     Width="*"
