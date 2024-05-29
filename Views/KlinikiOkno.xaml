@@ -7,7 +7,9 @@
     xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     xmlns:local="clr-namespace:BadanieKrwi.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:BadanieKrwi.ViewModels"
+    xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
     x:Name="kliniki"
     Title="Badanie Krwi - Kliniki"
     Width="600"
@@ -90,12 +92,14 @@
                     Text="{Binding NowaKlinika.Adres, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock Grid.Row="2" Text="Numer telefonu:" />
-                <TextBox
+                <xceed:MaskedTextBox
                     Grid.Row="2"
                     Grid.Column=" 1"
                     ctrl:TextBoxHelper.ClearTextButton="True"
                     ctrl:TextBoxHelper.Watermark="Podaj numer telefonu.."
-                    Text="{Binding NowaKlinika.Telefon, UpdateSourceTrigger=PropertyChanged}" />
+                    Mask="(00) 000-000-000"
+                    Text="{Binding NowaKlinika.Telefon, UpdateSourceTrigger=PropertyChanged}"
+                    ValueDataType="{x:Type s:Int32}" />
 
                 <TextBlock
                     Grid.Row="3"

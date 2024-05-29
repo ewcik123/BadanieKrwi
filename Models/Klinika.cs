@@ -1,4 +1,6 @@
-﻿namespace BadanieKrwi.Models
+﻿using System.Text.RegularExpressions;
+
+namespace BadanieKrwi.Models
 {
     public class Klinika : KlasaBazowa
     {
@@ -81,8 +83,15 @@
             Nazwa = klinika.Nazwa;
             Id = klinika.Id;
             Adres = klinika.Adres;
-            Telefon = klinika.Telefon;
+
+            Telefon = IsValidPhoneNumber(klinika.Telefon) ? klinika.Telefon : "";
             Informacja = klinika.Informacja;
+        }
+
+        public static bool IsValidPhoneNumber(string input)
+        {
+            string pattern = @"^\(\d{2}\) \d{3}-\d{3}-\d{3}$";
+            return Regex.IsMatch(input, pattern);
         }
     }
 }

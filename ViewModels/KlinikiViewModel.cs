@@ -57,7 +57,8 @@ namespace BadanieKrwi.ViewModels
         public bool czyMoznaZapisac
         => NowaKlinika?.Id != Guid.NewGuid()
             && !string.IsNullOrWhiteSpace(NowaKlinika?.Adres)
-            && !string.IsNullOrWhiteSpace(NowaKlinika?.Telefon);
+            && !string.IsNullOrWhiteSpace(NowaKlinika?.Telefon)
+            && Klinika.IsValidPhoneNumber(NowaKlinika?.Telefon);
         #endregion Properties
 
         #region Commands
