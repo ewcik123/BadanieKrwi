@@ -16,6 +16,7 @@ namespace BadanieKrwi.Models
             client.UseDefaultCredentials = false;
             client.Credentials = new NetworkCredential(_senderEmail, _senderPassword);
             client.EnableSsl = true;
+            client.Timeout = 10000;
 
             MailMessage msg = new(_senderEmail, recipientEmail, subject, body)
             {
