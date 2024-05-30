@@ -25,10 +25,11 @@ namespace BadanieKrwi.Models
 
             using AppDbContext cont = new();
             var klinika = cont.Kliniki.FirstOrDefault(x => x.Id == kalendarz.IdKliniki);
-            if (klinika != null)
+            var uzytkownik = cont.Uzytkownik.FirstOrDefault(x => x.Id == kalendarz.IdUzytkownika);
+            if (klinika != null && uzytkownik != null && !string.IsNullOrWhiteSpace(uzytkownik.Email))
             {
-                _sender.SendEmail(Globals.ZalogowanyUzytkownik.Email, $"Przypomnienie o wizycie na badania - {kalendarz.TypBadania}",
-                    $"Dzień dobry <b>{Globals.ZalogowanyUzytkownik.Imie} {Globals.ZalogowanyUzytkownik.Nazwisko}</b><br>" +
+                _sender.SendEmail(uzytkownik.Email, $"Przypomnienie o wizycie na badania - {kalendarz.TypBadania}",
+                    $"Dzień dobry <b>{uzytkownik.Imie} {uzytkownik.Nazwisko}</b><br>" +
                     $"W dniu <b>{kalendarz.DataBadania}</b> masz umówioną wizytę na badania.<br><br><b>Badanie:</b> {kalendarz.TypBadania}<br>" +
                     $"<b>Klinika:</b> {klinika.Nazwa}<br>" +
                     $"<b>Treść:</b><br>{kalendarz.Tresc}");

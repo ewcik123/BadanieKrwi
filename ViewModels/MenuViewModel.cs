@@ -10,7 +10,6 @@ namespace BadanieKrwi.ViewModels
     {
         #region Properties
         public IDialogCoordinator DialogCoordinator { get; set; }
-        public ICommand LoadedCommand { get; set; }
         public ICommand NoweBadanieCommand { get; set; }
         public ICommand TwojeBadaniaCommand { get; set; }
         public ICommand KalendarzBadanCommand { get; set; }
@@ -37,7 +36,6 @@ namespace BadanieKrwi.ViewModels
 
         private void InicjalizacjaKomend()
         {
-            LoadedCommand = new RelayCommand(ExecLoaded);
             NoweBadanieCommand = new RelayCommand(ExecNoweBadanieWidok);
             TwojeBadaniaCommand = new RelayCommand(ExecTwojeBadanieWidok);
             KalendarzBadanCommand = new RelayCommand(ExecKalendarzWidok);
@@ -46,37 +44,7 @@ namespace BadanieKrwi.ViewModels
             InformacjeCommand = new RelayCommand(ExecInformacjeWidok);
         }
 
-        public async void SprawdzTerminKolejnegoBadania()
-        {
-            using AppDbContext cont = new();
-            var obecnaData = DateTime.Now;
-            var wpisyWKalendarzu = cont.Kalendarz.Where(x => x.IdUzytkownika == Globals.ZalogowanyUzytkownik.Id
-                && x.CzyUstawionoPrzypomnienie
-                && x.DataBadania.Date == obecnaData.AddDays(1).Date).ToList();
-            if (wpisyWKalendarzu == null || wpisyWKalendarzu.Count == 0)
-                return;
-
-            foreach (var wpis in wpisyWKalendarzu)
-            {
-                try
-                {
-                    MenadzerPowiadomien.Instance.WyslijPowiadomienieOBadaniu(wpis);
-                    wpis.CzyUstawionoPrzypomnienie = false;
-                    cont.Update(wpis);
-                    cont.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    await ShowMessageAsync($"Błąd podczas wysyłania powiadomienia:\n{ex.Message}", "Wysłanie powiadomienia", this);
-                }
-            }
-        }
-
         #endregion Main
-        private void ExecLoaded(object obj)
-        {
-            SprawdzTerminKolejnegoBadania();
-        }
 
         private async void ExecNoweBadanieWidok(object obj)
         {

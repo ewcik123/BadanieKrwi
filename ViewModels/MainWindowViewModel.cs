@@ -121,6 +121,7 @@ namespace BadanieKrwi.ViewModels
         {
             RejestracjaVM = new();
             InicjalizacjaKomend();
+            SprawdzTerminKolejnegoBadania();
         }
 
         private void InicjalizacjaKomend()
@@ -129,6 +130,32 @@ namespace BadanieKrwi.ViewModels
             RejestracjaCommand = new RelayCommand(ExecRejestracja, x => RejestracjaVM.CzyMoznaSieZarejstrowac);
             LogowanieWidokCommand = new RelayCommand(ExecLogowanieWidok, x => _czyMoznaSieZalogowac);
             PowrotDoLogowaniaCommand = new RelayCommand(ExecPowrotDoLogowania);
+        }
+
+        public async void SprawdzTerminKolejnegoBadania()
+        {
+            using AppDbContext cont = new();
+            var obecnaData = DateTime.Now;
+
+            var wpisyWKalendarzu = cont.Kalendarz.Where(x => x.CzyUstawionoPrzypomnienie
+                && x.DataBadania.Date == obecnaData.AddDays(1).Date).ToList();
+            if (wpisyWKalendarzu == null || wpisyWKalendarzu.Count == 0)
+                return;
+
+            foreach (var wpis in wpisyWKalendarzu)
+            {
+                try
+                {
+                    MenadzerPowiadomien.Instance.WyslijPowiadomienieOBadaniu(wpis);
+                    wpis.CzyUstawionoPrzypomnienie = false;
+                    cont.Update(wpis);
+                    cont.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    await ShowMessageAsync($"Błąd podczas wysyłania powiadomienia:\n{ex.Message}", "Wysłanie powiadomienia", this);
+                }
+            }
         }
         #endregion Main
 
