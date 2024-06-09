@@ -138,7 +138,7 @@ namespace BadanieKrwi.ViewModels
             {
                 if (NoweBadanie.CzyZmodyfikowano)
                 {
-                    var result = await ShowMessageAsync("Czy na pewno chcesz cofnąć? Twoje dane nie zostaną zapisane", "Powrót", MessageDialogStyle.AffirmativeAndNegative, this, DialogCoordinator);
+                    var result = await ShowMessageAsync(new ("Powrót", "Czy na pewno chcesz cofnąć? Twoje dane nie zostaną zapisane"), MessageDialogStyle.AffirmativeAndNegative, this, DialogCoordinator);
                     if (result == MessageDialogResult.Negative)
                         return;
                 }
@@ -170,7 +170,7 @@ namespace BadanieKrwi.ViewModels
                         cont.SaveChanges();
                     }
 
-                    var result = await ShowMessageAsync("Twoje dane zostały zapisane", "Zapis Nowego Badania", this, DialogCoordinator);
+                    var result = await ShowMessageAsync(new WiadomoscModel("Zapis Nowego Badania", "Twoje dane zostały zapisane"), this, DialogCoordinator);
                     if (result == MessageDialogResult.Affirmative)
                         nbo.DialogResult = true;
                 }

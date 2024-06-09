@@ -52,7 +52,7 @@ namespace BadanieKrwi.ViewModels
             var brakKlinik = !cont.Kliniki.Any();
             if (brakKlinik)
             {
-                await ShowMessageAsync("Brak klinik. Zanim dodasz badnie musisz utworzyć klinikę", "Nowe Badanie", MessageDialogStyle.Affirmative, this, DialogCoordinator);
+                await ShowMessageAsync(new ("Nowe Badanie", "Brak klinik. Zanim dodasz badnie musisz utworzyć klinikę"), MessageDialogStyle.Affirmative, this, DialogCoordinator);
                 return;
             }
             NoweBadanieOkno badanieWindow = new();

@@ -98,12 +98,12 @@ namespace BadanieKrwi.ViewModels
                 if (dialog.ShowDialog().Value)
                 {
                     if (MenadzerPdf.Instance.Generuj(dialog.FileName, WybraneBadanie))
-                        await ShowMessageAsync("Raport wygenerowano pomyślnie", "Generowanie Pdf", this, DialogCoordinator);
+                        await ShowMessageAsync(new("Generowanie Pdf", "Raport wygenerowano pomyślnie"), this, DialogCoordinator);
                 }
             }
             catch (Exception ex)
             {
-                await ShowMessageAsync(ex.Message, "Generowanie Pdf", this, DialogCoordinator);
+                await ShowMessageAsync(new("Generowanie Pdf", ex.Message), this, DialogCoordinator);
             }
         }
 

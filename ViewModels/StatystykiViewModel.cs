@@ -89,7 +89,7 @@ namespace BadanieKrwi.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    await ShowMessageAsync(ex.Message, "Stężenie substancji", this, DialogCoordinator);
+                    await ShowMessageAsync(new("Stężenie substancji", ex.Message), this, DialogCoordinator);
                 }
             }
         }

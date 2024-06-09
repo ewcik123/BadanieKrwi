@@ -98,22 +98,28 @@ namespace BadanieKrwi.ViewModels
             WybranaKlinika = Kliniki.FirstOrDefault();
         }
 
-        private bool Aktualizuj()
+        private async Task<bool> Aktualizuj()
         {
             using AppDbContext cont = new();
+            WiadomoscModel wiadomosc = null;
+            bool czyZapisano = false;
+
             if (WybranaKlinika != null)
             {
                 WybranaKlinika.AktualizujKlinike(NowaKlinika);
                 cont.Update(WybranaKlinika);
-                return cont.SaveChanges() > 0;
+                czyZapisano =  cont.SaveChanges() > 0;
+                wiadomosc = new("Aktualizacja", czyZapisano ? "Zaktualizowano klinika." : "Nie udało się zaktualizować kliniki");
             }
             else if (WybranaKlinika == null)
             {
                 cont.Add(NowaKlinika);
-                return cont.SaveChanges() > 0;
+                czyZapisano =  cont.SaveChanges() > 0;
+                wiadomosc = new("Nowa", czyZapisano ? "Dodano nową klinikę" : "Nie udało się stworzyć kliniki.");
             }
-            return false;
 
+            await ShowMessageAsync(wiadomosc, this, DialogCoordinator);
+            return czyZapisano;
         }
 
         #endregion Main
@@ -123,9 +129,9 @@ namespace BadanieKrwi.ViewModels
                 ko.Close();
         }
 
-        private void ExecZapisz(object obj)
+        private async void ExecZapisz(object obj)
         {
-            if (obj is KlinikiOkno ko && Aktualizuj())
+            if (obj is KlinikiOkno ko && await Aktualizuj())
                 ko.Close();
         }
 

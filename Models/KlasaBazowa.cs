@@ -18,28 +18,28 @@ namespace BadanieKrwi.Models
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        public async Task<MessageDialogResult> ShowMessageAsync(string message, string title, object context = null, IDialogCoordinator dialogCoordinator = null)
+        public async Task<MessageDialogResult> ShowMessageAsync(WiadomoscModel wiadomosc, object context = null, IDialogCoordinator dialogCoordinator = null)
         {
             if (dialogCoordinator == null || context == null)
                 return MessageDialogResult.Canceled;
 
-            return await dialogCoordinator.ShowMessageAsync(context, title, message);
+            return await dialogCoordinator.ShowMessageAsync(context, wiadomosc.Tytul, wiadomosc.Tresc);
         }
 
-        public async Task<MessageDialogResult> ShowMessageAsync(string message, string title, MessageDialogStyle messageDialogStyle, object context = null, IDialogCoordinator dialogCoordinator = null)
+        public async Task<MessageDialogResult> ShowMessageAsync(WiadomoscModel wiadomosc, MessageDialogStyle messageDialogStyle, object context = null, IDialogCoordinator dialogCoordinator = null)
         {
             if (dialogCoordinator == null || context == null)
                 return MessageDialogResult.Canceled;
 
-            return await dialogCoordinator.ShowMessageAsync(context, title, message, messageDialogStyle);
+            return await dialogCoordinator.ShowMessageAsync(context, wiadomosc.Tytul, wiadomosc.Tresc, messageDialogStyle);
         }
 
-        public async Task<MessageDialogResult> ShowMessageAsync(string message, string title, MessageDialogStyle messageDialogStyle, object context = null, IDialogCoordinator dialogCoordinator = null, MetroDialogSettings metroDialogSettings = null)
+        public async Task<MessageDialogResult> ShowMessageAsync(WiadomoscModel wiadomosc, MessageDialogStyle messageDialogStyle, object context = null, IDialogCoordinator dialogCoordinator = null, MetroDialogSettings metroDialogSettings = null)
         {
             if (dialogCoordinator == null || context == null)
                 return MessageDialogResult.Canceled;
 
-            return await dialogCoordinator.ShowMessageAsync(context, title, message, messageDialogStyle, metroDialogSettings);
+            return await dialogCoordinator.ShowMessageAsync(context, wiadomosc.Tytul, wiadomosc.Tresc, messageDialogStyle, metroDialogSettings);
         }
     }
 }

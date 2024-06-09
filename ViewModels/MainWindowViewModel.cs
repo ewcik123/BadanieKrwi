@@ -153,7 +153,7 @@ namespace BadanieKrwi.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    await ShowMessageAsync($"Błąd podczas wysyłania powiadomienia:\n{ex.Message}", "Wysłanie powiadomienia", this);
+                    await ShowMessageAsync(new("Wysłanie powiadomienia", $"Błąd podczas wysyłania powiadomienia:\n{ex.Message}"), this);
                 }
             }
         }
@@ -183,13 +183,13 @@ namespace BadanieKrwi.ViewModels
 
                 if (UwierzytelnianieSerwis.CzyUzytkownikIstnieje(RejestracjaVM.Email))
                 {
-                    await ShowMessageAsync("Użytkownik już zarejestrowany", "Rejestracja", this, DialogCoordinator);
+                    await ShowMessageAsync(new("Rejestracja", "Użytkownik już zarejestrowany"), this, DialogCoordinator);
                     return;
                 }
 
                 if (await UwierzytelnianieSerwis.RejestracjaAsync(nowyUzytkownik, RejestracjaVM.Haslo))
                 {
-                    await ShowMessageAsync("Twoje dane zostały zapisane", "Rejestracja", this, DialogCoordinator);
+                    await ShowMessageAsync(new("Rejestracja", "Twoje dane zostały zapisane"), this, DialogCoordinator);
                     Logowanie(mw);
                 }
             }
@@ -208,7 +208,7 @@ namespace BadanieKrwi.ViewModels
                 mw.Close();
             }
             else
-                await ShowMessageAsync("Nieprawidłowy adres email lub hasło.", "Logowanie", this, DialogCoordinator);
+                await ShowMessageAsync(new("Logowanie", "Nieprawidłowy adres email lub hasło."), this, DialogCoordinator);
         }
 
         private void ExecLogowanieWidok(object obj)
