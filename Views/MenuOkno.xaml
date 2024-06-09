@@ -20,11 +20,6 @@
     <ctrl:MetroWindow.DataContext>
         <vm:MenuViewModel />
     </ctrl:MetroWindow.DataContext>
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid>
         <Image
             HorizontalAlignment="Center"
