@@ -40,7 +40,7 @@ namespace BadanieKrwi.Models
                 doc.Add(Separator());
 
                 // Info podstawowe
-                doc.Add(TekstWartosc("Data badania:".PadRight(18), badanie.DataBadania.ToString()));
+                doc.Add(TekstWartosc("Data badania:".PadRight(18), badanie.DataBadania.ToShortDateString()));
                 doc.Add(TekstWartosc("Typ badania:".PadRight(19), badanie.TypBadania));
                 doc.Add(TekstWartosc("Nazwa Kliniki:".PadRight(19), badanie.NazwaKliniki));
                 doc.Add(TekstWartosc("Pracownik:".PadRight(20), $"{Globals.ZalogowanyUzytkownik.Imie} {Globals.ZalogowanyUzytkownik.Nazwisko}"));
