@@ -32,7 +32,7 @@ namespace BadanieKrwi.Models
                     File.Delete(filePath);
 
                 FileStream fStream = new(filePath, FileMode.CreateNew);
-                PdfWriter writer = PdfWriter.GetInstance(doc, fStream);
+                PdfWriter writer = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, fStream);
                 doc.Open();
 
                 // Nagłówek
